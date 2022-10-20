@@ -24,5 +24,7 @@ Route::group([
     'middleware' => ['web', config('backpack.base.middleware_key', 'admin')],
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () {
-    Route::get('site/sync',[\App\Http\Controllers\Admin\SiteCrudController::class,'sync']);
+    Route::get('syncs/sync/{id}',[\App\Http\Controllers\Admin\SyncController::class,'sync'])->name('syncs.sync');
+    Route::post('syncs/syncAjax/{id}',[\App\Http\Controllers\Admin\SyncController::class,'syncAjax'])->name('syncs.syncAjax');
+    Route::resource('orders',\App\Http\Controllers\Admin\SiteOrderController::class);
 });

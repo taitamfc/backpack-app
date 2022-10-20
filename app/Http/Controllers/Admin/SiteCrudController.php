@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\SiteRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use App\Models\Site;
+use Illuminate\Http\Request;
 
 /**
  * Class SiteCrudController
@@ -42,6 +44,7 @@ class SiteCrudController extends CrudController
         
         $this->crud->setColumns(['site_title', 'site_domain','last_sync']);
         $this->crud->addButtonFromModelFunction('line', 'sync_action', 'sync_action_button', 'end');
+        $this->crud->addButtonFromModelFunction('line', 'orders_action', 'orders_action_button', 'end');
     }
 
     
@@ -61,14 +64,15 @@ class SiteCrudController extends CrudController
 
         CRUD::field('site_title');
         CRUD::field('tagline');
+        CRUD::field('topbar_content');
         CRUD::field('site_domain');
         CRUD::field('api_key');
-        CRUD::field('product_api_url');
+        // CRUD::field('product_api_url');
         CRUD::field('product_start_id');
         CRUD::field('product_end_id');
         CRUD::field('product_limit_per_call');
         CRUD::field('product_call_interval');
-        CRUD::field('product_detail_api_url');
+        // CRUD::field('product_detail_api_url');
         CRUD::field('product_detail_limit_per_call');
         CRUD::field('import_to_wp_limit_per_call');
         CRUD::field('product_detail_call_interval');
@@ -80,8 +84,10 @@ class SiteCrudController extends CrudController
         CRUD::field('contact_email_address');
         CRUD::field('site_open_hours');
         CRUD::field('web_hook');
-        CRUD::field('product_tags');
-        CRUD::field('product_events');
+        CRUD::field('woocommerce_consumer_key');
+        CRUD::field('woocommerce_consumer_secret');
+        // CRUD::field('product_tags');
+        // CRUD::field('product_events');
         CRUD::field('site_map');
 
         
@@ -104,7 +110,5 @@ class SiteCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function sync(){
-        dd(123);
-    }
+    
 }

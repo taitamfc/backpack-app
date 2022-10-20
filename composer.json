@@ -11,7 +11,8 @@
         "backpack/menucrud": "^3.0",
         "backpack/pagemanager": "^3.0",
         "backpack/permissionmanager": "^6.0",
-        "guzzlehttp/guzzle": "^7.2",
+        "codexshaper/laravel-woocommerce": "^3.0",
+        "guzzlehttp/guzzle": "^7.5",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7"

@@ -30,7 +30,11 @@ class Site extends Model
     */
     public function sync_action_button($crud = false)
     {
-        return '<a href="'.url($crud->route.'/sync').'" class="btn btn-sm btn-link"><i class="la la-sync"></i>Sync</a>';
+        return '<a href="'.route('syncs.sync',$this->id).'" class="btn btn-sm btn-link"><i class="la la-sync"></i>Sync</a>';
+    }
+    public function orders_action_button($crud = false)
+    {
+        return '<a href="'. route('orders.index').'?site_id='. $this->id.'" class="btn btn-sm btn-link"><i class="la la-files-o"></i>Orders</a>';
     }
 
     /*

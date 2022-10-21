@@ -36,7 +36,11 @@ main {
                                         {{ $sync_val }}
                                     </label>
                                 </div>
-                                <div style="display:none;" class="spinner-border spinner-border-sm sync_{{ $sync_key }}"></div>
+                                <div 
+                                @if( $sync_key != 'init_settings' )
+                                style="display:none;"
+                                @endif
+                                class="spinner-border spinner-border-sm sync_{{ $sync_key }}"></div>
                             </li>
                             @endforeach
                             <li class="list-group-item">
@@ -80,6 +84,9 @@ main {
                             console.log(data);
                             let sync_type = data.sync_type;
                             jQuery('.sync_'+sync_type).show();
+                            if(data.next_step == 1){
+                                this.syncItem();
+                            }
                         }
                     });
                 }

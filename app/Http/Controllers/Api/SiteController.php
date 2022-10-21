@@ -9,9 +9,12 @@ use App\Http\Resources\SiteResource;
 
 class SiteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $domain = $request->domain;
+        $site = Site::where('site_domain',$domain)->first();
+        return new SiteResource($site);
+        return response()->json($site);
     }
     public function store(Request $request)
     {

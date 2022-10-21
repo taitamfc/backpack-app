@@ -40,17 +40,24 @@ main {
                                 @if( $sync_key != 'init_settings' )
                                 style="display:none;"
                                 @endif
-                                class="spinner-border spinner-border-sm sync_{{ $sync_key }}"></div>
+                                class="la la-check sync_{{ $sync_key }}"></div>
                             </li>
                             @endforeach
                             <li class="list-group-item">
-                                <button @disabled( count($synced_keys)> 0 )
-                                    type="submit" class="btn btn-primary"
-                                    onclick=" return confirm('Are you sure ?'); ">SYNC NOW</button>
+                                <button 
+                                    @disabled( count($synced_keys)> 0 )
+                                    id="sync_now"
+                                    type="submit" class="btn btn-primary "
+                                    onclick=" return confirm('Are you sure ?'); ">
+                                    @if( count($synced_keys)> 0 )
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    @endif
+                                    <span class="visually-hidden">SYNC NOW</span>
+                                </button>
 
                                 @if( count($synced_keys) > 0 )
                                 <a class="btn btn-warning text-white float-right"
-                                    href="{{ backpack_url('site') }}/sync/{{ $site_id }}"
+                                    href="{{ route('syncs.sync',$site_id) }}"
                                     onclick=" return confirm('Are you sure stop ?'); ">STOP</a>
 
                                 @endif
@@ -75,6 +82,7 @@ main {
             },
             methods : {
                 syncItem: function(){
+                    console.log('syncItem');
                     jQuery.ajax({
                         url: this.ajaxUrl,
                         method: 'POST',
@@ -86,6 +94,10 @@ main {
                             jQuery('.sync_'+sync_type).show();
                             if(data.next_step == 1){
                                 this.syncItem();
+                            }else{
+                                jQuery('#sync_now').prop('disabled',false);
+                                jQuery('#sync_now .spinner-border').remove();
+                                alert('Completed !');
                             }
                         }
                     });

@@ -17,8 +17,9 @@ class SyncController extends Controller
         $this->web_hook = str_replace('__SITE_DOMAIN__',$site->site_domain,$this->web_hook);
 
         $syncs = $request->syncs;
+
         $sync_position = session('sync_position', 0);
-        // $sync_position = 0;
+        // $sync_position = 4;
 
         if( isset($syncs[$sync_position]) ){
             $sync_type = $syncs[$sync_position];
@@ -27,19 +28,22 @@ class SyncController extends Controller
                     $res =  $this->sync_init_settings();
                     break;
                 case 'site_settings':
-                    $res =  $this->sync_site_settings();
+                    $res =  $this->sync_type('site_settings');
                     break;
                 case 'menu_items':
-                    $res =  $this->sync_menu_items();
+                    $res =  $this->sync_type('menu_items');
                     break;
                 case 'pages':
-
+                    $res =  $this->sync_pages();
                     break;                
                 case 'events':
-
+                    $res =  $this->sync_type('events');
                     break;                
                 case 'categories':
-                    
+                    $res =  $this->sync_type('categories');
+                    break;                
+                case 'assign_product_tags':
+                    $res =  $this->sync_type('assign_product_tags');
                     break;                
                 default:
                     # code...
@@ -48,10 +52,11 @@ class SyncController extends Controller
             $sync_position++;
             session(['sync_position' => $sync_position]);
             $res['sync_type'] = $sync_type;
-            $res['next_step'] = 1;
         }else{
             session(['sync_position' => 0]);
             $res['next_step'] = 0;
+            $site->last_sync = date('Y-m-d H:i:s');
+            $site->save();
         }
         
         $res['site_id'] = $site_id;
@@ -59,6 +64,7 @@ class SyncController extends Controller
         return response()->json($res);
     }
     public function sync(Request $request,$site_id = 0){
+        session(['sync_position' => 0]);
         $synced_keys = $request->syncs ?? [];
         
         if(!$site_id){
@@ -70,9 +76,10 @@ class SyncController extends Controller
             'init_settings' => 'Init Settings',
             'site_settings' => 'Site Settings',
             'menu_items'    => 'Menu Items',
-            'pages'         => 'Pages',
+            // 'pages'         => 'Pages',
             'events'        => 'Events',
             'categories'    => 'Categories',
+            'assign_product_tags'    => 'Assign Product Tags',
         ];
         
         $params = [
@@ -88,15 +95,13 @@ class SyncController extends Controller
         $response = Http::asForm()->post($this->web_hook.'init_settings', [
             'web_hook' => $this->site->web_hook
         ]);
-        // echo($response);die();
         return $response->json();
     }
 
-    private function sync_site_settings(){
-        $response = Http::get($this->web_hook.'site_settings');
+    private function sync_type($type){
+        $response = Http::get($this->web_hook.$type);
+        echo($response);die();
         return $response->json();
     }
-    private function sync_menu_items(){
-       
-    }
+
 }

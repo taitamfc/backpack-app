@@ -37,6 +37,7 @@ class SiteResource extends JsonResource
             'product_detail_call_interval' => $this->product_detail_call_interval,
             'import_to_wp_limit_per_call' => $this->import_to_wp_limit_per_call,
             'import_to_wp_interval' => $this->import_to_wp_interval,
+            'API_KEY' => $this->api_key,
         ];
     }
 }

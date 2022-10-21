@@ -22,3 +22,4 @@ Route::apiResource('sites',\App\Http\Controllers\Api\SiteController::class);
 Route::apiResource('menu_items',\App\Http\Controllers\Api\MenuItemController::class);
 Route::apiResource('events',\App\Http\Controllers\Api\EventController::class);
 Route::apiResource('categories',\App\Http\Controllers\Api\CategoryController::class);
+Route::apiResource('logs',\App\Http\Controllers\Api\LogController::class);

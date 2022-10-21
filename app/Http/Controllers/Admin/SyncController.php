@@ -20,6 +20,7 @@ class SyncController extends Controller
 
         $sync_position = session('sync_position', 0);
         // $sync_position = 4;
+        $loop = false;
 
         if( isset($syncs[$sync_position]) ){
             $sync_type = $syncs[$sync_position];
@@ -49,8 +50,12 @@ class SyncController extends Controller
                     # code...
                     break;
             }
-            $sync_position++;
-            session(['sync_position' => $sync_position]);
+            // if loop, re-call ajax
+            if( isset($res['loop']) ){ $loop = $res['loop']; }
+            if( !$loop ){
+                $sync_position++;
+                session(['sync_position' => $sync_position]);
+            }
             $res['sync_type'] = $sync_type;
         }else{
             session(['sync_position' => 0]);
@@ -100,7 +105,6 @@ class SyncController extends Controller
 
     private function sync_type($type){
         $response = Http::get($this->web_hook.$type);
-        echo($response);die();
         return $response->json();
     }
 

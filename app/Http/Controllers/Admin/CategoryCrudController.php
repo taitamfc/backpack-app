@@ -41,6 +41,8 @@ class CategoryCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->addButton('top', 'sync', 'view', 'end');
+        
         CRUD::column('name');
         CRUD::column('image_url');
         CRUD::column('updated_at');

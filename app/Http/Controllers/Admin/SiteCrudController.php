@@ -42,9 +42,35 @@ class SiteCrudController extends CrudController
     protected function setupListOperation()
     {
         
-        $this->crud->setColumns(['site_title', 'site_domain','last_sync']);
-        $this->crud->addButtonFromModelFunction('line', 'sync_action', 'sync_action_button', 'end');
-        $this->crud->addButtonFromModelFunction('line', 'orders_action', 'orders_action_button', 'end');
+        $this->crud->setColumns(['site_domain','last_sync']);
+        $this->crud->removeButton('show');
+        if( !backpack_user()->hasPermissionTo('Sites-create') ){
+            $this->crud->removeButton('create');
+        }
+        if( !backpack_user()->hasPermissionTo('Sites-update') ){
+            $this->crud->removeButton('update');
+        }
+        if( !backpack_user()->hasPermissionTo('Sites-delete') ){
+            $this->crud->removeButton('delete');
+        }
+
+        // Check user is have permisson on single site
+        if( !backpack_user()->hasPermissionTo('Sites-index') ){
+            if( backpack_user()->hasPermissionTo('Single Site-index') ){
+                $this->crud->addClause('where', 'site_domain', '=', 'nacamio.com');
+            }
+        }
+
+
+        if( backpack_user()->hasPermissionTo('Single Site-sync') ){
+            $this->crud->addButtonFromModelFunction('line', 'sync_action', 'sync_action_button', 'end');
+        }
+        if( backpack_user()->hasPermissionTo('Single Site-orders') ){
+            $this->crud->addButtonFromModelFunction('line', 'orders_action', 'orders_action_button', 'end');
+        }
+        if( backpack_user()->hasPermissionTo('Single Site-shippings') ){
+            $this->crud->addButtonFromModelFunction('line', 'shipping_action', 'shippings_action_action_button', 'end');
+        }
     }
 
     
@@ -89,6 +115,14 @@ class SiteCrudController extends CrudController
         // CRUD::field('product_tags');
         // CRUD::field('product_events');
         CRUD::field('site_map');
+        CRUD::field('search_config_active');
+        CRUD::field('search_config_keywords');
+        CRUD::field('html_scripts_header');
+        CRUD::field('html_scripts_footer');
+        CRUD::field('html_scripts_after_body');
+        CRUD::field('html_scripts_before_body');
+        CRUD::field('google_api_key');
+        CRUD::field('facebook_api_key');
 
         
 

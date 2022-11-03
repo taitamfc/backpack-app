@@ -1,0 +1,1 @@
+<a href="{{ route('syncs.index',$crud->entity_name) }}" class="btn btn-xs btn-info"><i class="la la-sync"></i> Sync</a>

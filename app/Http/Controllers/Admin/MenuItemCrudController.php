@@ -11,6 +11,8 @@ class MenuItemCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+
 
     public function setup()
     {
@@ -56,5 +58,9 @@ class MenuItemCrudController extends CrudController
                 'view_namespace' => file_exists(resource_path('views/vendor/backpack/crud/fields/page_or_link.blade.php')) ? null : 'menucrud::fields',
             ]);
         });
+    }
+    protected function setupListOperation()
+    {
+        $this->crud->addButton('top', 'sync', 'view', 'end');
     }
 }

@@ -6,7 +6,7 @@ session_start();
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 define('IMG_DIR', dirname(__FILE__));
-define('IMG_URL', 'https://api.vaobo.com');
+define('IMG_URL', '');
 
 include 'system/config.php';
 include 'system/helper.php';

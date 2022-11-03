@@ -41,6 +41,9 @@ class EventCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->addButton('top', 'sync', 'view', 'end');
+
+
         CRUD::column('name');
         CRUD::column('slug');
         CRUD::column('created_at');

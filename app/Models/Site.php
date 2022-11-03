@@ -36,6 +36,10 @@ class Site extends Model
     {
         return '<a href="'. route('orders.index').'?site_id='. $this->id.'" class="btn btn-sm btn-link"><i class="la la-files-o"></i>Orders</a>';
     }
+    public function shippings_action_action_button($crud = false)
+    {
+        return '<a href="'. route('shippings.index').'?site_id='. $this->id.'" class="btn btn-sm btn-link"><i class="la la-files-o"></i>Shippings</a>';
+    }
 
     /*
     |--------------------------------------------------------------------------

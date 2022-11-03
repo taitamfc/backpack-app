@@ -75,6 +75,15 @@ class SyncController extends Controller
                 $sync_position++;
                 session(['sync_position' => $sync_position]);
             }
+<<<<<<< HEAD
+=======
+            // if loop, re-call ajax
+            if( isset($res['loop']) ){ $loop = $res['loop']; }
+            if( !$loop ){
+                $sync_position++;
+                session(['sync_position' => $sync_position]);
+            }
+>>>>>>> b47011531b9f3f12958fac933c39c9c2f9af04b7
             $res['sync_type'] = $sync_type;
         }else{
             session(['sync_position' => 0]);
@@ -159,10 +168,16 @@ class SyncController extends Controller
         ]);
         return $response->json();
     }
+<<<<<<< HEAD
     private function sync_shipping_options(){
         $response = Http::asForm()->post($this->web_hook.'shipping_options', [
             'shipper_methods_options' => json_decode($this->site->shipper_methods_options,true)
         ]);
+=======
+
+    private function sync_type($type){
+        $response = Http::get($this->web_hook.$type);
+>>>>>>> b47011531b9f3f12958fac933c39c9c2f9af04b7
         return $response->json();
     }
 

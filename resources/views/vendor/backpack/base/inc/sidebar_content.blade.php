@@ -2,19 +2,12 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i>
    {{ trans('backpack::base.dashboard') }}</a>
 </li>
-@if( backpack_user()->hasPermissionTo('Menus-index') )
-<li class="nav-item">
-    <a class="nav-link" href="{{ backpack_url('menu-item') }}">
-        <i class="nav-icon la la-list"></i>
-        <span>Menu</span>
-    </a>
-</li>
-@endif
-@if( backpack_user()->hasPermissionTo('Pages-index') )
+
+@if( backpack_user()->hasPermissionTo('Orders-index') )
 <li class='nav-item'>
-    <a class='nav-link' href="{{ backpack_url('page') }}">
+    <a class='nav-link' href="{{ backpack_url('order') }}">
         <i class='nav-icon la la-file-o'></i>
-        <span>Pages</span>
+        <span>Orders</span>
     </a>
 </li>
 @endif
@@ -62,20 +55,53 @@
    </ul>
 </li>
 @endif
-@if( backpack_user()->hasPermissionTo('Events-index') )
-<li class="nav-item">
-    <a class="nav-link" href="{{ backpack_url('event') }}">
-        <i class="nav-icon la la-question"></i>Events
+<li class="nav-item nav-dropdown">
+    <a class="nav-link nav-dropdown-toggle" href="#">
+        <i class="nav-icon la la-users"></i> Site Settings
     </a>
+    <ul class="nav-dropdown-items">
+        @if( backpack_user()->hasPermissionTo('Menus-index') )
+        <li class="nav-item">
+            <a class="nav-link" href="{{ backpack_url('menu-item') }}">
+                <i class="nav-icon la la-list"></i>
+                <span>Menu</span>
+            </a>
+        </li>
+        @endif
+        @if( backpack_user()->hasPermissionTo('Events-index') )
+        <li class="nav-item">
+            <a class="nav-link" href="{{ backpack_url('event') }}">
+                <i class="nav-icon la la-question"></i>Events
+            </a>
+        </li>
+        @endif
+        @if( backpack_user()->hasPermissionTo('Categories-index') )
+        <li class="nav-item">
+            <a class="nav-link" href="{{ backpack_url('category') }}">
+                <i class="nav-icon la la-question"></i>Categories
+            </a>
+        </li>
+        @endif
+        @if( backpack_user()->hasPermissionTo('Pages-index') )
+        <li class='nav-item'>
+            <a class='nav-link' href="{{ backpack_url('page') }}">
+                <i class='nav-icon la la-file-o'></i>
+                <span>Pages</span>
+            </a>
+        </li>
+        @endif
+        @if( backpack_user()->hasPermissionTo('Tags-index') )
+        <li class='nav-item'>
+            <a class='nav-link' href="{{ backpack_url('tag') }}">
+                <i class='nav-icon la la-file-o'></i>
+                <span>Tags</span>
+            </a>
+        </li>
+        @endif
+        
+   </ul>
 </li>
-@endif
-@if( backpack_user()->hasPermissionTo('Categories-index') )
-<li class="nav-item">
-    <a class="nav-link" href="{{ backpack_url('category') }}">
-        <i class="nav-icon la la-question"></i>Categories
-    </a>
-</li>
-@endif
+
 @if( backpack_user()->hasPermissionTo('Sites-index') || backpack_user()->hasPermissionTo('Single Site-index') )
 <li class="nav-item">
     <a class="nav-link" href="{{ backpack_url('site') }}">

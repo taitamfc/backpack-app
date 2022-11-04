@@ -70,6 +70,7 @@ class EventCrudController extends CrudController
             'product_tags' => 'required',
         ]);
         CRUD::field('name');
+        CRUD::field('description');
         CRUD::field('slug')->on('saving', function ($entry) {
             $entry->slug = Str::slug($entry->name);
         });
@@ -113,6 +114,8 @@ class EventCrudController extends CrudController
             'disk'      => 'local',
          ]);
         CRUD::field('product_tags');
+        CRUD::field('seo_title');
+        CRUD::field('seo_description');
 
         
 

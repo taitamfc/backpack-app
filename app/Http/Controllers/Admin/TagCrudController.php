@@ -41,7 +41,7 @@ class TagCrudController extends CrudController
     protected function setupListOperation()
     {
         
-        $this->crud->setColumns(['name', 'slug']);
+        $this->crud->setColumns(['name']);
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -66,11 +66,11 @@ class TagCrudController extends CrudController
             'type' => 'text',
             'label' => "Tag name"
         ]);
-        $this->crud->addField([
-            'name' => 'slug',
-            'type' => 'text',
-            'label' => "URL Segment (slug)"
-        ]);
+        // $this->crud->addField([
+        //     'name' => 'slug',
+        //     'type' => 'text',
+        //     'label' => "URL Segment (slug)"
+        // ]);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

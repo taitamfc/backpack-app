@@ -31,6 +31,7 @@ class SiteCrudController extends CrudController
         CRUD::setModel(\App\Models\Site::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/site');
         CRUD::setEntityNameStrings('site', 'sites');
+
     }
 
     /**
@@ -47,7 +48,7 @@ class SiteCrudController extends CrudController
         if( !backpack_user()->hasPermissionTo('Sites-create') ){
             $this->crud->removeButton('create');
         }
-        if( !backpack_user()->hasPermissionTo('Sites-update') ){
+        if( !backpack_user()->hasPermissionTo('Sites-update') && !backpack_user()->hasPermissionTo('Single Site-update') ){
             $this->crud->removeButton('update');
         }
         if( !backpack_user()->hasPermissionTo('Sites-delete') ){
@@ -57,7 +58,7 @@ class SiteCrudController extends CrudController
         // Check user is have permisson on single site
         if( !backpack_user()->hasPermissionTo('Sites-index') ){
             if( backpack_user()->hasPermissionTo('Single Site-index') ){
-                $this->crud->addClause('where', 'site_domain', '=', 'nacamio.com');
+                $this->crud->addClause('where', 'id', '=', backpack_user()->site_id);
             }
         }
 
@@ -83,49 +84,74 @@ class SiteCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+        $this->crud->setCreateContentClass('col-md-12 bold-labels');
+
         CRUD::setValidation([
             'site_title' => 'required|min:2',
             'site_domain' => 'required|min:2',
         ]);
 
-        CRUD::field('site_title');
-        CRUD::field('tagline');
-        CRUD::field('topbar_content');
-        CRUD::field('site_domain');
-        CRUD::field('api_key');
-        // CRUD::field('product_api_url');
-        CRUD::field('product_start_id');
-        CRUD::field('product_end_id');
-        CRUD::field('product_limit_per_call');
-        CRUD::field('product_call_interval');
-        // CRUD::field('product_detail_api_url');
-        CRUD::field('product_detail_limit_per_call');
-        CRUD::field('import_to_wp_limit_per_call');
-        CRUD::field('product_detail_call_interval');
-        CRUD::field('import_to_wp_interval');
-        CRUD::field('import_to_wp_interval');
-        CRUD::field('site_address');
-        CRUD::field('administration_email_address');
-        CRUD::field('site_phone');
-        CRUD::field('contact_email_address');
-        CRUD::field('site_open_hours');
-        CRUD::field('web_hook');
-        CRUD::field('woocommerce_consumer_key');
-        CRUD::field('woocommerce_consumer_secret');
-        // CRUD::field('product_tags');
-        // CRUD::field('product_events');
-        CRUD::field('site_map');
-        CRUD::field('search_config_active');
-        CRUD::field('search_config_keywords');
-        CRUD::field('html_scripts_header');
-        CRUD::field('html_scripts_footer');
-        CRUD::field('html_scripts_after_body');
-        CRUD::field('html_scripts_before_body');
-        CRUD::field('google_api_key');
-        CRUD::field('facebook_api_key');
+        $this->crud->addField(['name'=>'site_title','tab' => 'General']);
+        $this->crud->addField(['name'=>'tagline','tab' => 'General']);
+        $this->crud->addField(['name'=>'administration_email_address','tab' => 'General']);
+        $this->crud->addField(['name'=>'topbar_content','tab' => 'General']);
+        $this->crud->addField(['name'=>'site_domain','tab' => 'General']);
+        $this->crud->addField(['name'=>'web_hook','tab' => 'General']);
+        $this->crud->addField(['name'=>'show_admin_bar','type'=>'checkbox','tab' => 'General']);
 
-        
 
+        $this->crud->addField(['name'=>'api_key','tab' => 'Api Setting']);
+        $this->crud->addField(['name'=>'product_start_id','tab' => 'Api Setting']);
+        $this->crud->addField(['name'=>'product_end_id','tab' => 'Api Setting']);
+        $this->crud->addField(['name'=>'product_limit_per_call','tab' => 'Api Setting']);
+        $this->crud->addField(['name'=>'product_call_interval','tab' => 'Api Setting']);
+        $this->crud->addField(['name'=>'product_detail_limit_per_call','tab' => 'Api Setting']);
+        $this->crud->addField(['name'=>'product_detail_call_interval','tab' => 'Api Setting']);
+        $this->crud->addField(['name'=>'import_to_wp_limit_per_call','tab' => 'Api Setting']);
+        $this->crud->addField(['name'=>'import_to_wp_interval','tab' => 'Api Setting']);
+
+        $this->crud->addField(['name'=>'site_address','tab' => 'Site Info']);
+        $this->crud->addField(['name'=>'site_phone','tab' => 'Site Info']);
+        $this->crud->addField(['name'=>'contact_email_address','tab' => 'Site Info']);
+        $this->crud->addField(['name'=>'site_open_hours','tab' => 'Site Info']);
+        $this->crud->addField(['name'=>'site_map','tab' => 'Site Info']);
+
+        if( backpack_user()->hasPermissionTo('Sites field - Woocommerce consumer key') ){
+            $this->crud->addField(['name'=>'woocommerce_consumer_key','tab' => 'Woocommerce']);
+        }
+        if( backpack_user()->hasPermissionTo('Sites field - Woocommerce consumer secret') ){
+            $this->crud->addField(['name'=>'woocommerce_consumer_secret','tab' => 'Woocommerce']);
+        }
+
+        $this->crud->addField(['name'=>'search_config_active','type'=>'checkbox','tab' => 'Search']);
+        $this->crud->addField(['name'=>'search_config_keywords','tab' => 'Search']);
+
+        $this->crud->addField(['name'=>'html_scripts_header','tab' => 'Scripts']);
+        $this->crud->addField(['name'=>'html_scripts_footer','tab' => 'Scripts']);
+        $this->crud->addField(['name'=>'html_scripts_after_body','tab' => 'Scripts']);
+        $this->crud->addField(['name'=>'html_scripts_before_body','tab' => 'Scripts']);
+
+        if( backpack_user()->hasPermissionTo('Sites field - Google api key') ){
+            $this->crud->addField(['name'=>'google_api_key','tab' => 'Integration']);
+        }
+        if( backpack_user()->hasPermissionTo('Sites field - Facebook api key') ){
+            $this->crud->addField(['name'=>'facebook_api_key','tab' => 'Integration']);
+        }
+        $this->crud->addField(['name'=>'stripe_sandbox_on','type'=>'checkbox','tab' => 'Stripe']);
+        $this->crud->addField(['name'=>'stripe_live_publishable_key','tab' => 'Stripe']);
+        $this->crud->addField(['name'=>'stripe_live_secret_key','tab' => 'Stripe']);
+        $this->crud->addField(['name'=>'stripe_test_publishable_key','tab' => 'Stripe']);
+        $this->crud->addField(['name'=>'stripe_test_secret_key','tab' => 'Stripe']);
+
+        $this->crud->addField(['name'=>'paypal_sandbox_on','type'=>'checkbox','tab' => 'Paypal']);
+        $this->crud->addField(['name'=>'paypal_sandbox_email_address','tab' => 'Paypal']);
+        $this->crud->addField(['name'=>'paypal_sandbox_merchant_id','tab' => 'Paypal']);
+        $this->crud->addField(['name'=>'paypal_sandbox_client_id','tab' => 'Paypal']);
+        $this->crud->addField(['name'=>'paypal_sandbox_secret_key','tab' => 'Paypal']);
+        $this->crud->addField(['name'=>'paypal_live_email_address','tab' => 'Paypal']);
+        $this->crud->addField(['name'=>'paypal_live_merchant_id','tab' => 'Paypal']);
+        $this->crud->addField(['name'=>'paypal_live_client_id','tab' => 'Paypal']);
+        $this->crud->addField(['name'=>'paypal_live_secret_key','tab' => 'Paypal']);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -141,6 +167,8 @@ class SiteCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
+        $this->crud->setEditContentClass('col-md-12 bold-labels');
+
         $this->setupCreateOperation();
     }
 

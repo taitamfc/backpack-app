@@ -10,7 +10,6 @@
         "backpack/filemanager": "^2.0",
         "backpack/logmanager": "^4.0",
         "backpack/menucrud": "^3.0",
-        "backpack/pagemanager": "^3.0",
         "backpack/permissionmanager": "^6.0",
         "backpack/settings": "^3.0",
         "codexshaper/laravel-woocommerce": "^3.0",

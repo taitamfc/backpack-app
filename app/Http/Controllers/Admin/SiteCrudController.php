@@ -96,7 +96,7 @@ class SiteCrudController extends CrudController
         $this->crud->addField(['name'=>'administration_email_address','tab' => 'General']);
         $this->crud->addField(['name'=>'topbar_content','tab' => 'General']);
         $this->crud->addField(['name'=>'site_domain','tab' => 'General']);
-        $this->crud->addField(['name'=>'web_hook','tab' => 'General']);
+        // $this->crud->addField(['name'=>'web_hook','tab' => 'General']);
         $this->crud->addField(['name'=>'show_admin_bar','type'=>'checkbox','tab' => 'General']);
 
 

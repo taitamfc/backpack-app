@@ -66,11 +66,14 @@ class TagCrudController extends CrudController
             'type' => 'text',
             'label' => "Tag name"
         ]);
-        // $this->crud->addField([
-        //     'name' => 'slug',
-        //     'type' => 'text',
-        //     'label' => "URL Segment (slug)"
-        // ]);
+        $this->crud->addField([
+            'name' => 'seo_title',
+            'hint'       => 'Empty value means when sycn value is: <br>'. config('settings.product_tag_seo_title'),
+        ]);
+        $this->crud->addField([
+            'name' => 'seo_description',
+            'hint'       => 'Empty value means when sycn value is: <br>'. config('settings.product_tag_meta_description'),
+        ]);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

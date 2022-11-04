@@ -32,7 +32,7 @@ main {
                             ?>
                             <tr>
                                 <td>
-                                    <strong><?= ucfirst($field); ?></strong>
+                                    <strong><?= $field; ?></strong>
                                 </td>
                                 <td>
                                     <?php if( is_array($value) ): ?>
@@ -45,7 +45,7 @@ main {
                                     <table>
                                         <?php foreach($value as $f => $v):?>
                                         <tr>
-                                            <td><?= ucfirst($f); ?></td>
+                                            <td><?= $field.'_'.$f; ?></td>
                                             <td><?= $v; ?></td>
                                         </tr>
                                         <?php endforeach;?>

@@ -67,6 +67,10 @@ class CategoryCrudController extends CrudController
         ]);
 
         CRUD::field('name');
+        $this->crud->addField([
+            'name' => 'description',
+            'type'  => 'summernote',
+        ]);
         CRUD::field('slug')->on('saving', function ($entry) {
             $entry->slug = Str::slug($entry->name);
         });
@@ -77,6 +81,14 @@ class CategoryCrudController extends CrudController
             'upload'    => true,
             'disk'      => 'local',
          ]);
+         $this->crud->addField([
+            'name' => 'seo_title',
+            'hint'       => 'Empty value means when sycn value is: <br>'. config('settings.product_cat_seo_title'),
+        ]);
+        $this->crud->addField([
+            'name' => 'seo_description',
+            'hint'       => 'Empty value means when sycn value is: <br>'. config('settings.product_cat_meta_description'),
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

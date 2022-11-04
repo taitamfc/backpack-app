@@ -155,7 +155,7 @@ class SyncController extends Controller
 
     private function sync_init_settings(){
         $response = Http::asForm()->post($this->web_hook.'init_settings', [
-            'web_hook' => $this->site->web_hook
+            'web_hook' => config('settings.web_hook_admin')
         ]);
         return $response->json();
     }

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 04, 2022 at 08:39 AM
--- Server version: 5.7.33
--- PHP Version: 8.1.7
+-- Host: localhost
+-- Generation Time: Nov 04, 2022 at 03:44 PM
+-- Server version: 10.3.34-MariaDB-0ubuntu0.20.04.1
+-- PHP Version: 7.4.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `laravel`
+-- Database: `gear_admin`
 --
 
 -- --------------------------------------------------------
@@ -30,6 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -40,13 +43,13 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `slug`, `image_url`, `created_at`, `updated_at`) VALUES
-(2, 'Hoodie', 'hoodie', 'uploads/ddf0bba3f9423346739e6a80b4163053.png', '2022-10-21 01:34:54', '2022-10-21 01:34:54'),
-(3, 'Long Sleeve', 'long-sleeve', 'uploads/c0c946d00f3a14ec301413982e5d4fbc.png', '2022-10-21 01:37:35', '2022-10-21 01:37:35'),
-(4, 'Men T-Shirt', 'men-t-shirt', 'uploads/64c1c1390cbb45c7d5e4fe3a8b953dc4.png', '2022-10-21 01:38:08', '2022-10-21 01:38:08'),
-(5, 'Sweatshirt', 'sweatshirt', 'uploads/acc52a12234d09175f74a3f035b59ff4.png', '2022-10-21 01:38:43', '2022-10-21 01:38:43'),
-(6, 'Women T-Shirt', 'women-t-shirt', 'uploads/227784178d271a28a6eb2138b563c393.png', '2022-10-21 01:39:05', '2022-10-21 01:39:05'),
-(7, 'Test', 'test', 'uploads/130f4abb4421588f1e30ebe9c0362270.webp', '2022-10-23 18:18:16', '2022-10-23 18:18:16');
+INSERT INTO `categories` (`id`, `name`, `description`, `seo_title`, `seo_description`, `slug`, `image_url`, `created_at`, `updated_at`) VALUES
+(2, 'Hoodie', NULL, NULL, NULL, 'hoodie', 'uploads/ddf0bba3f9423346739e6a80b4163053.png', '2022-10-21 01:34:54', '2022-10-21 01:34:54'),
+(3, 'Long Sleeve', NULL, NULL, NULL, 'long-sleeve', 'uploads/c0c946d00f3a14ec301413982e5d4fbc.png', '2022-10-21 01:37:35', '2022-10-21 01:37:35'),
+(4, 'Men T-Shirt', NULL, NULL, NULL, 'men-t-shirt', 'uploads/64c1c1390cbb45c7d5e4fe3a8b953dc4.png', '2022-10-21 01:38:08', '2022-10-21 01:38:08'),
+(5, 'Sweatshirt', NULL, NULL, NULL, 'sweatshirt', 'uploads/acc52a12234d09175f74a3f035b59ff4.png', '2022-10-21 01:38:43', '2022-10-21 01:38:43'),
+(6, 'Women T-Shirt', NULL, NULL, NULL, 'women-t-shirt', 'uploads/227784178d271a28a6eb2138b563c393.png', '2022-10-21 01:39:05', '2022-10-21 01:39:05'),
+(7, 'Test', NULL, NULL, NULL, 'test', 'uploads/4e3affb262d354ade7eebd31c6e780d0.png', '2022-10-23 18:18:16', '2022-11-04 02:28:20');
 
 -- --------------------------------------------------------
 
@@ -65,9 +68,9 @@ CREATE TABLE `events` (
   `product_tags` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_description` text COLLATE utf8mb4_unicode_ci
+  `seo_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -80,7 +83,7 @@ INSERT INTO `events` (`id`, `name`, `slug`, `start_day`, `start_month`, `end_day
 (7, 'MLB All-Star Game', 'mlb-all-star-game', 29, 6, 5, 'uploads/eb6abcdb61ab65042d7f14c1e710f5f0.webp', '111', '2022-10-21 00:53:52', '2022-10-21 00:53:52', NULL, NULL, NULL),
 (8, 'Parents\' Day', 'parents-day', 26, 9, 5, 'uploads/4eb38626823fbf1fe7c160b8526cb127.webp', '111', '2022-10-21 00:55:11', '2022-10-21 00:55:11', NULL, NULL, NULL),
 (9, 'Pride Month Day', 'pride-month-day', 30, 6, 5, 'uploads/55a914fc609c4a08e2c25cef7be15a20.webp', '111', '2022-10-21 00:56:02', '2022-10-21 00:56:02', NULL, NULL, NULL),
-(10, 'Test', 'test', 1, 1, 1, 'uploads/5378371fe97391258e760a6efd20432e.png', 'test', '2022-11-02 08:14:19', '2022-11-02 09:46:20', NULL, NULL, NULL);
+(10, 'Test', 'test', 1, 1, 1, 'uploads/5378371fe97391258e760a6efd20432e.png', 'test', '2022-11-02 08:14:19', '2022-11-04 03:03:27', NULL, '%%term_title%% %%sep%% %%sitename%%', 'Products tagged %%term_title%% Collection from %%sitename%% for your team, organization or event online. Free Shipping, Discount and thousands of design ideas.');
 
 -- --------------------------------------------------------
 
@@ -95,7 +98,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -221,8 +224,8 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(4, 'App\\Models\\User', 2),
-(3, 'App\\Models\\User', 3);
+(3, 'App\\Models\\User', 3),
+(4, 'App\\Models\\User', 2);
 
 -- --------------------------------------------------------
 
@@ -232,11 +235,62 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 
 CREATE TABLE `orders` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `order_id` bigint(20) DEFAULT NULL,
+  `site_id` int(11) DEFAULT NULL,
+  `status` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `currency` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `version` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `prices_include_tax` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `date_modified` datetime DEFAULT NULL,
+  `discount_total` float DEFAULT NULL,
+  `discount_tax` float DEFAULT NULL,
+  `shipping_total` float DEFAULT NULL,
+  `shipping_tax` float DEFAULT NULL,
+  `cart_tax` float DEFAULT NULL,
+  `total` float DEFAULT NULL,
+  `total_tax` float DEFAULT NULL,
+  `customer_id` bigint(20) DEFAULT NULL,
+  `order_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `billing` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shipping` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_method_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `customer_ip_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `customer_user_agent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_via` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `customer_note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_completed` datetime DEFAULT NULL,
+  `date_paid` datetime DEFAULT NULL,
+  `cart_hash` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `number` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_data` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `line_items` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tax_lines` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shipping_lines` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fee_lines` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `coupon_lines` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `refunds` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_editable` tinyint(4) DEFAULT NULL,
+  `needs_payment` tinyint(4) DEFAULT NULL,
+  `needs_processing` tinyint(4) DEFAULT NULL,
+  `date_created_gmt` datetime DEFAULT NULL,
+  `date_modified_gmt` datetime DEFAULT NULL,
+  `date_completed_gmt` datetime DEFAULT NULL,
+  `date_paid_gmt` datetime DEFAULT NULL,
+  `currency_symbol` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_id`, `site_id`, `status`, `currency`, `version`, `prices_include_tax`, `date_created`, `date_modified`, `discount_total`, `discount_tax`, `shipping_total`, `shipping_tax`, `cart_tax`, `total`, `total_tax`, `customer_id`, `order_key`, `payment_method`, `billing`, `shipping`, `payment_method_title`, `transaction_id`, `customer_ip_address`, `customer_user_agent`, `created_via`, `customer_note`, `date_completed`, `date_paid`, `cart_hash`, `number`, `meta_data`, `line_items`, `tax_lines`, `shipping_lines`, `fee_lines`, `coupon_lines`, `refunds`, `payment_url`, `is_editable`, `needs_payment`, `needs_processing`, `date_created_gmt`, `date_modified_gmt`, `date_completed_gmt`, `date_paid_gmt`, `currency_symbol`, `parent_id`) VALUES
+(20, 1514, 10, 'completed', 'USD', '7.0.0', '0', '2022-11-04 21:36:46', '2022-11-04 21:40:42', 0, 0, 5.99, 0, 0, 25.94, 0, 1, 'wc_order_x0kzYgv8d9mgS', 'stripe', '{\"first_name\":\"test\",\"last_name\":\"test\",\"company\":\"test\",\"address_1\":\"test\",\"address_2\":\"\",\"city\":\"test\",\"state\":\"AL\",\"postcode\":\"00084\",\"country\":\"US\",\"email\":\"admin@gmail.com\",\"phone\":\"0123456789\"}', '{\"first_name\":\"test\",\"last_name\":\"test\",\"company\":\"test\",\"address_1\":\"test\",\"address_2\":\"\",\"city\":\"test\",\"state\":\"AL\",\"postcode\":\"00084\",\"country\":\"US\",\"phone\":\"\"}', 'Credit Card (Stripe)', 'ch_3M0R0nLFT5yoGBpX0USuWF8g', '14.167.121.144', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0', 'checkout', '', '2022-11-04 21:40:42', '2022-11-04 21:36:51', '531a9412109ea966e176de9050c5afac', '1514', '[{\"id\":5123,\"key\":\"is_vat_exempt\",\"value\":\"no\"},{\"id\":5124,\"key\":\"_stripe_customer_id\",\"value\":\"cus_M1zBqO6W5zsSmT\"},{\"id\":5125,\"key\":\"_stripe_source_id\",\"value\":\"src_1LJvDLLFT5yoGBpXB297uSt5\"},{\"id\":5126,\"key\":\"_stripe_intent_id\",\"value\":\"pi_3M0R0nLFT5yoGBpX03JeFbOL\"},{\"id\":5127,\"key\":\"_stripe_charge_captured\",\"value\":\"yes\"},{\"id\":5128,\"key\":\"_stripe_fee\",\"value\":\"1.05\"},{\"id\":5129,\"key\":\"_stripe_net\",\"value\":\"24.89\"},{\"id\":5130,\"key\":\"_stripe_currency\",\"value\":\"USD\"},{\"id\":5138,\"key\":\"_new_order_email_sent\",\"value\":\"true\"},{\"id\":5139,\"key\":\"_ga_tracked\",\"value\":\"1\"}]', '[{\"id\":25,\"name\":\"Chicago shirt - chicago flag shirt men premium tee\",\"product_id\":660,\"variation_id\":0,\"quantity\":1,\"tax_class\":\"\",\"subtotal\":\"19.95\",\"subtotal_tax\":\"0.00\",\"total\":\"19.95\",\"total_tax\":\"0.00\",\"taxes\":[],\"meta_data\":[{\"id\":224,\"key\":\"color\",\"value\":\"Asphalt\",\"display_key\":\"color\",\"display_value\":\"Asphalt\"},{\"id\":225,\"key\":\"size\",\"value\":\"S\",\"display_key\":\"size\",\"display_value\":\"S\"}],\"sku\":\"\",\"price\":19.95,\"image\":{\"id\":660,\"src\":\"https:\\/\\/m.media-amazon.com\\/images\\/I\\/A13usaonutL._CLa|2140,2000|81UbNufBwoL.png|0,0,2140,2000+0.0,0.0,2140.0,2000.0._UL792_.png\"},\"parent_name\":null}]', '[]', '[{\"id\":26,\"method_title\":\"Standard shipping from United States\",\"method_id\":\"flat_rate\",\"instance_id\":\"1\",\"total\":\"5.99\",\"total_tax\":\"0.00\",\"taxes\":[],\"meta_data\":[{\"id\":231,\"key\":\"Items\",\"value\":\"Chicago shirt - chicago flag shirt men premium tee &times; 1\",\"display_key\":\"Items\",\"display_value\":\"Chicago shirt - chicago flag shirt men premium tee &times; 1\"}]}]', '[]', '[]', '[]', 'https://nacamio.com/checkout/order-pay/1514/?pay_for_order=true&key=wc_order_x0kzYgv8d9mgS', 0, 0, 1, '2022-11-04 14:36:46', '2022-11-04 14:40:42', '2022-11-04 14:40:42', '2022-11-04 14:36:51', '$', 0),
+(21, 1513, 10, 'on-hold', 'USD', '7.0.0', '0', '2022-11-04 21:34:38', '2022-11-04 21:45:06', 0, 0, 5.99, 0, 0, 25.94, 0, 1, 'wc_order_thelGFQQLPVXx', 'stripe', '{\"first_name\":\"test\",\"last_name\":\"test\",\"company\":\"test\",\"address_1\":\"test\",\"address_2\":\"\",\"city\":\"test\",\"state\":\"AL\",\"postcode\":\"00084\",\"country\":\"US\",\"email\":\"admin@gmail.com\",\"phone\":\"0123456789\"}', '{\"first_name\":\"test\",\"last_name\":\"test\",\"company\":\"test\",\"address_1\":\"test\",\"address_2\":\"\",\"city\":\"test\",\"state\":\"AL\",\"postcode\":\"00084\",\"country\":\"US\",\"phone\":\"\"}', 'Credit Card (Stripe)', 'ch_3M0QyjLFT5yoGBpX1JMK3CKB', '14.167.121.144', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0', 'checkout', '', NULL, '2022-11-04 21:34:43', '531a9412109ea966e176de9050c5afac', '1513', '[{\"id\":5069,\"key\":\"is_vat_exempt\",\"value\":\"no\"},{\"id\":5070,\"key\":\"_stripe_customer_id\",\"value\":\"cus_M1zBqO6W5zsSmT\"},{\"id\":5071,\"key\":\"_stripe_source_id\",\"value\":\"src_1LJvDLLFT5yoGBpXB297uSt5\"},{\"id\":5072,\"key\":\"_stripe_intent_id\",\"value\":\"pi_3M0QyjLFT5yoGBpX1TiJvtBy\"},{\"id\":5073,\"key\":\"_stripe_charge_captured\",\"value\":\"yes\"},{\"id\":5074,\"key\":\"_stripe_fee\",\"value\":\"1.05\"},{\"id\":5075,\"key\":\"_stripe_net\",\"value\":\"24.89\"},{\"id\":5076,\"key\":\"_stripe_currency\",\"value\":\"USD\"},{\"id\":5084,\"key\":\"_new_order_email_sent\",\"value\":\"true\"},{\"id\":5085,\"key\":\"_ga_tracked\",\"value\":\"1\"}]', '[{\"id\":23,\"name\":\"Chicago shirt - chicago flag shirt men premium tee\",\"product_id\":660,\"variation_id\":0,\"quantity\":1,\"tax_class\":\"\",\"subtotal\":\"19.95\",\"subtotal_tax\":\"0.00\",\"total\":\"19.95\",\"total_tax\":\"0.00\",\"taxes\":[],\"meta_data\":[{\"id\":207,\"key\":\"color\",\"value\":\"Asphalt\",\"display_key\":\"color\",\"display_value\":\"Asphalt\"},{\"id\":208,\"key\":\"size\",\"value\":\"S\",\"display_key\":\"size\",\"display_value\":\"S\"}],\"sku\":\"\",\"price\":19.95,\"image\":{\"id\":660,\"src\":\"https:\\/\\/m.media-amazon.com\\/images\\/I\\/A13usaonutL._CLa|2140,2000|81UbNufBwoL.png|0,0,2140,2000+0.0,0.0,2140.0,2000.0._UL792_.png\"},\"parent_name\":null}]', '[]', '[{\"id\":24,\"method_title\":\"Standard shipping from United States\",\"method_id\":\"flat_rate\",\"instance_id\":\"1\",\"total\":\"5.99\",\"total_tax\":\"0.00\",\"taxes\":[],\"meta_data\":[{\"id\":214,\"key\":\"Items\",\"value\":\"Chicago shirt - chicago flag shirt men premium tee &times; 1\",\"display_key\":\"Items\",\"display_value\":\"Chicago shirt - chicago flag shirt men premium tee &times; 1\"}]}]', '[]', '[]', '[]', 'https://nacamio.com/checkout/order-pay/1513/?pay_for_order=true&key=wc_order_thelGFQQLPVXx', 1, 0, 1, '2022-11-04 14:34:38', '2022-11-04 14:45:06', NULL, '2022-11-04 14:34:43', '$', 0);
 
 -- --------------------------------------------------------
 
@@ -246,12 +300,11 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `pages` (
   `id` int(10) UNSIGNED NOT NULL,
-  `template` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci,
-  `extras` longtext COLLATE utf8mb4_unicode_ci,
+  `content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -261,8 +314,8 @@ CREATE TABLE `pages` (
 -- Dumping data for table `pages`
 --
 
-INSERT INTO `pages` (`id`, `template`, `name`, `title`, `slug`, `content`, `extras`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'about_us', 'About us', 'About us', 'about-us', '<h1 class=\"post-heading\">About us</h1>\r\n<div id=\"article-content\">\r\n\r\n<strong>__SITE_NAME__</strong> is a global marketplace that empowers independent sellers to share today’s most daring, exciting and edgy fashion apparel. We help our community of sellers turn their ideas into successful businesses. Our platform connects them with millions of buyers looking for an alternative—something special with a human touch, for those moments in life that deserve imagination.\r\n\r\nWe provide customers with access to hundreds of unique designs made by passionate designers and artists. Unleash the power of great design to brighten the world around you.\r\n\r\n<b>Office Address</b>: __SITE_ADDRESS__\r\n<b>Phone</b>: __SITE_PHONE__\r\n<b>Office Hours: __SITE_OPEN_HOURS__\r\n<b>Email</b>:&nbsp;<a href=\"mailto:__SITE_CONTACT_EMAIL__\">__SITE_CONTACT_EMAIL__</a>\r\n\r\n</b></div>', NULL, '2022-10-16 00:25:49', '2022-10-16 00:25:49', NULL);
+INSERT INTO `pages` (`id`, `title`, `slug`, `content`, `seo_title`, `seo_description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'About us', 'about-us', '<h1 class=\"post-heading\">About us</h1>\r\n<div id=\"article-content\">\r\n\r\n<strong>__SITE_NAME__</strong> is a global marketplace that empowers independent sellers to share today’s most daring, exciting and edgy fashion apparel. We help our community of sellers turn their ideas into successful businesses. Our platform connects them with millions of buyers looking for an alternative—something special with a human touch, for those moments in life that deserve imagination.\r\n\r\nWe provide customers with access to hundreds of unique designs made by passionate designers and artists. Unleash the power of great design to brighten the world around you.\r\n\r\n<b>Office Address</b>: __SITE_ADDRESS__\r\n<b>Phone</b>: __SITE_PHONE__\r\n<b>Office Hours: __SITE_OPEN_HOURS__\r\n<b>Email</b>:&nbsp;<a href=\"mailto:__SITE_CONTACT_EMAIL__\">__SITE_CONTACT_EMAIL__</a>\r\n\r\n</b></div>', NULL, NULL, '2022-10-16 00:25:49', '2022-10-16 00:25:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -372,7 +425,7 @@ CREATE TABLE `personal_access_tokens` (
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -464,21 +517,32 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (44, 1),
 (45, 1),
 (46, 1),
+(46, 3),
 (47, 1),
 (48, 1),
 (49, 1),
 (50, 1),
 (51, 1),
 (56, 1),
+(56, 4),
 (57, 1),
+(57, 4),
 (58, 1),
+(58, 4),
 (59, 1),
+(59, 4),
 (60, 1),
+(60, 4),
 (61, 1),
+(61, 4),
 (62, 1),
+(62, 4),
 (63, 1),
 (64, 1),
+(64, 3),
+(64, 4),
 (65, 1),
+(65, 4),
 (66, 1),
 (67, 1),
 (68, 1),
@@ -494,18 +558,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (78, 1),
 (79, 1),
 (80, 1),
-(81, 1),
-(46, 3),
-(64, 3),
-(56, 4),
-(57, 4),
-(58, 4),
-(59, 4),
-(60, 4),
-(61, 4),
-(62, 4),
-(64, 4),
-(65, 4);
+(81, 1);
 
 -- --------------------------------------------------------
 
@@ -518,7 +571,7 @@ CREATE TABLE `settings` (
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci,
+  `value` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `field` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -551,44 +604,44 @@ INSERT INTO `settings` (`id`, `key`, `name`, `description`, `value`, `field`, `a
 
 CREATE TABLE `sites` (
   `id` int(11) NOT NULL,
-  `api_key` varchar(255) DEFAULT NULL,
-  `product_api_url` varchar(255) DEFAULT NULL,
-  `product_start_id` int(11) DEFAULT '0',
-  `product_end_id` int(11) DEFAULT '0',
-  `product_limit_per_call` int(11) DEFAULT '1',
-  `product_api_next_page` int(11) DEFAULT '0',
-  `product_call_interval` varchar(255) DEFAULT NULL,
-  `product_detail_api_url` varchar(255) DEFAULT NULL,
-  `product_detail_limit_per_call` int(11) DEFAULT '1',
-  `import_to_wp_limit_per_call` int(11) DEFAULT '1',
-  `product_detail_call_interval` varchar(255) DEFAULT NULL,
-  `import_to_wp_interval` varchar(255) DEFAULT NULL,
-  `site_title` varchar(255) DEFAULT NULL,
-  `tagline` varchar(255) DEFAULT NULL,
-  `topbar_content` text,
-  `site_address` varchar(255) DEFAULT NULL,
-  `site_domain` varchar(255) DEFAULT NULL,
-  `administration_email_address` varchar(255) DEFAULT NULL,
-  `site_phone` varchar(255) DEFAULT NULL,
-  `contact_email_address` varchar(255) DEFAULT NULL,
-  `site_open_hours` varchar(255) DEFAULT NULL,
-  `web_hook` varchar(255) DEFAULT NULL,
-  `product_tags` text,
-  `product_events` text,
-  `site_map` text,
-  `woocommerce_consumer_key` varchar(255) DEFAULT NULL,
-  `woocommerce_consumer_secret` varchar(255) DEFAULT NULL,
-  `html_scripts_header` text,
-  `html_scripts_footer` text,
-  `html_scripts_after_body` text,
-  `html_scripts_before_body` text,
-  `google_api_key` varchar(255) DEFAULT NULL,
-  `facebook_api_key` varchar(255) DEFAULT NULL,
-  `search_config_active` varchar(255) DEFAULT 'yes',
-  `search_config_keywords` text,
-  `shipper_methods_options` text,
+  `api_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_api_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_start_id` int(11) DEFAULT 0,
+  `product_end_id` int(11) DEFAULT 0,
+  `product_limit_per_call` int(11) DEFAULT 1,
+  `product_api_next_page` int(11) DEFAULT 0,
+  `product_call_interval` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_detail_api_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_detail_limit_per_call` int(11) DEFAULT 1,
+  `import_to_wp_limit_per_call` int(11) DEFAULT 1,
+  `product_detail_call_interval` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `import_to_wp_interval` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `site_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tagline` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `topbar_content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `site_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `site_domain` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `administration_email_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `site_phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_email_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `site_open_hours` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `web_hook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_tags` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_events` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `site_map` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `woocommerce_consumer_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `woocommerce_consumer_secret` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `html_scripts_header` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `html_scripts_footer` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `html_scripts_after_body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `html_scripts_before_body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `google_api_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facebook_api_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `search_config_active` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'yes',
+  `search_config_keywords` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shipper_methods_options` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_sync` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `sites`
@@ -607,6 +660,8 @@ CREATE TABLE `tags` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -615,9 +670,9 @@ CREATE TABLE `tags` (
 -- Dumping data for table `tags`
 --
 
-INSERT INTO `tags` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'tag1', NULL, '2022-11-03 06:31:00', '2022-11-03 06:33:56'),
-(2, 'tag2', NULL, '2022-11-03 06:32:12', '2022-11-03 06:32:12');
+INSERT INTO `tags` (`id`, `name`, `slug`, `seo_title`, `seo_description`, `created_at`, `updated_at`) VALUES
+(1, 'tag1', NULL, NULL, NULL, '2022-11-03 06:31:00', '2022-11-03 06:33:56'),
+(2, 'tag2', NULL, NULL, NULL, '2022-11-03 06:32:12', '2022-11-03 06:32:12');
 
 -- --------------------------------------------------------
 
@@ -710,9 +765,7 @@ ALTER TABLE `model_has_roles`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `orders_name_unique` (`name`),
-  ADD UNIQUE KEY `orders_slug_unique` (`slug`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `pages`
@@ -833,7 +886,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `pages`

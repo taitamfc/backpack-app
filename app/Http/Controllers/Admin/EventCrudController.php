@@ -70,7 +70,10 @@ class EventCrudController extends CrudController
             'product_tags' => 'required',
         ]);
         CRUD::field('name');
-        CRUD::field('description');
+        $this->crud->addField([
+            'name' => 'description',
+            'type'  => 'summernote',
+        ]);
         CRUD::field('slug')->on('saving', function ($entry) {
             $entry->slug = Str::slug($entry->name);
         });
@@ -83,7 +86,6 @@ class EventCrudController extends CrudController
         }
         $this->crud->addField([   // select_from_array
             'name'        => 'start_day',
-            'label'       => "Start Day",
             'type'        => 'select_from_array',
             'options'     => $days,
             'allows_null' => false,
@@ -91,7 +93,6 @@ class EventCrudController extends CrudController
         ]);
         $this->crud->addField([   // select_from_array
             'name'        => 'start_month',
-            'label'       => "Start Month",
             'type'        => 'select_from_array',
             'options'     => $months,
             'allows_null' => false,
@@ -108,14 +109,19 @@ class EventCrudController extends CrudController
         // CRUD::field('image_url');
         $this->crud->addField([   // Upload
             'name'      => 'image_url',
-            'label'     => 'Image',
             'type'      => 'upload',
             'upload'    => true,
             'disk'      => 'local',
          ]);
         CRUD::field('product_tags');
-        CRUD::field('seo_title');
-        CRUD::field('seo_description');
+        $this->crud->addField([
+            'name' => 'seo_title',
+            'hint'       => 'Empty value means when sycn value is: <br>'. config('settings.product_event_seo_title'),
+        ]);
+        $this->crud->addField([
+            'name' => 'seo_description',
+            'hint'       => 'Empty value means when sycn value is: <br>'. config('settings.product_event_meta_description'),
+        ]);
 
         
 

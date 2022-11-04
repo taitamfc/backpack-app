@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Page extends Model
 {
     use CrudTrait;
 
@@ -15,9 +15,9 @@ class Order extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'orders';
+    protected $table = 'pages';
     // protected $primaryKey = 'id';
-    public $timestamps = false;
+    // public $timestamps = false;
     protected $guarded = ['id'];
     // protected $fillable = [];
     // protected $hidden = [];

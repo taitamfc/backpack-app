@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\PageRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Str;
+
 
 /**
- * Class OrderCrudController
+ * Class PageCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class OrderCrudController extends CrudController
+class PageCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +28,9 @@ class OrderCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Order::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/order');
-        CRUD::setEntityNameStrings('order', 'orders');
+        CRUD::setModel(\App\Models\Page::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/page');
+        CRUD::setEntityNameStrings('page', 'pages');
     }
 
     /**
@@ -39,14 +41,9 @@ class OrderCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
-        $this->crud->removeButton('show');
-        $this->crud->removeButton('delete');
-
-        CRUD::column('order_id');
-        CRUD::column('site_id');
-        CRUD::column('status');
-        CRUD::column('total');
+        CRUD::column('title');
+        CRUD::column('created_at');
+        CRUD::column('updated_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -64,11 +61,23 @@ class OrderCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation([
-            // 'name' => 'required|min:2',
+            'title' => 'required|min:2',
         ]);
 
-        CRUD::field('name');
-        CRUD::field('slug');
+        CRUD::field('title');
+        CRUD::field('slug')->on('saving', function ($entry) {
+            $entry->slug = Str::slug($entry->title);
+        });
+        $this->crud->addField([
+            'name' => 'content',
+            'type'  => 'summernote',
+        ]);
+        $this->crud->addField([
+            'name' => 'seo_title',
+        ]);
+        $this->crud->addField([
+            'name' => 'seo_description',
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

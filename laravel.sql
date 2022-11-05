@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 04, 2022 at 03:44 PM
--- Server version: 10.3.34-MariaDB-0ubuntu0.20.04.1
--- PHP Version: 7.4.32
+-- Máy chủ: localhost:3306
+-- Thời gian đã tạo: Th10 05, 2022 lúc 01:16 AM
+-- Phiên bản máy phục vụ: 5.7.33
+-- Phiên bản PHP: 8.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,21 +18,21 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `gear_admin`
+-- Cơ sở dữ liệu: `laravel`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Cấu trúc bảng cho bảng `categories`
 --
 
 CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8mb4_unicode_ci,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `categories`
+-- Đang đổ dữ liệu cho bảng `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`, `seo_title`, `seo_description`, `slug`, `image_url`, `created_at`, `updated_at`) VALUES
@@ -54,7 +54,7 @@ INSERT INTO `categories` (`id`, `name`, `description`, `seo_title`, `seo_descrip
 -- --------------------------------------------------------
 
 --
--- Table structure for table `events`
+-- Cấu trúc bảng cho bảng `events`
 --
 
 CREATE TABLE `events` (
@@ -68,13 +68,13 @@ CREATE TABLE `events` (
   `product_tags` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `seo_description` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `events`
+-- Đang đổ dữ liệu cho bảng `events`
 --
 
 INSERT INTO `events` (`id`, `name`, `slug`, `start_day`, `start_month`, `end_day`, `image_url`, `product_tags`, `created_at`, `updated_at`, `description`, `seo_title`, `seo_description`) VALUES
@@ -88,7 +88,7 @@ INSERT INTO `events` (`id`, `name`, `slug`, `start_day`, `start_month`, `end_day
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Cấu trúc bảng cho bảng `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -98,13 +98,13 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jobs`
+-- Cấu trúc bảng cho bảng `jobs`
 --
 
 CREATE TABLE `jobs` (
@@ -118,7 +118,7 @@ CREATE TABLE `jobs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `jobs`
+-- Đang đổ dữ liệu cho bảng `jobs`
 --
 
 INSERT INTO `jobs` (`id`, `queue`, `payload`, `attempts`, `reserved_at`, `available_at`, `created_at`) VALUES
@@ -128,7 +128,7 @@ INSERT INTO `jobs` (`id`, `queue`, `payload`, `attempts`, `reserved_at`, `availa
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menu_items`
+-- Cấu trúc bảng cho bảng `menu_items`
 --
 
 CREATE TABLE `menu_items` (
@@ -147,7 +147,7 @@ CREATE TABLE `menu_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `menu_items`
+-- Đang đổ dữ liệu cho bảng `menu_items`
 --
 
 INSERT INTO `menu_items` (`id`, `name`, `type`, `link`, `page_id`, `parent_id`, `lft`, `rgt`, `depth`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -162,7 +162,7 @@ INSERT INTO `menu_items` (`id`, `name`, `type`, `link`, `page_id`, `parent_id`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Cấu trúc bảng cho bảng `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -172,7 +172,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Đang đổ dữ liệu cho bảng `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -197,7 +197,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `model_has_permissions`
+-- Cấu trúc bảng cho bảng `model_has_permissions`
 --
 
 CREATE TABLE `model_has_permissions` (
@@ -209,7 +209,7 @@ CREATE TABLE `model_has_permissions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `model_has_roles`
+-- Cấu trúc bảng cho bảng `model_has_roles`
 --
 
 CREATE TABLE `model_has_roles` (
@@ -219,18 +219,18 @@ CREATE TABLE `model_has_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `model_has_roles`
+-- Đang đổ dữ liệu cho bảng `model_has_roles`
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(3, 'App\\Models\\User', 3),
-(4, 'App\\Models\\User', 2);
+(4, 'App\\Models\\User', 2),
+(3, 'App\\Models\\User', 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Cấu trúc bảng cho bảng `orders`
 --
 
 CREATE TABLE `orders` (
@@ -253,8 +253,8 @@ CREATE TABLE `orders` (
   `customer_id` bigint(20) DEFAULT NULL,
   `order_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `billing` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shipping` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `billing` longtext COLLATE utf8mb4_unicode_ci,
+  `shipping` longtext COLLATE utf8mb4_unicode_ci,
   `payment_method_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `customer_ip_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -265,13 +265,13 @@ CREATE TABLE `orders` (
   `date_paid` datetime DEFAULT NULL,
   `cart_hash` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `number` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_data` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `line_items` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tax_lines` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shipping_lines` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fee_lines` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `coupon_lines` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `refunds` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_data` longtext COLLATE utf8mb4_unicode_ci,
+  `line_items` longtext COLLATE utf8mb4_unicode_ci,
+  `tax_lines` longtext COLLATE utf8mb4_unicode_ci,
+  `shipping_lines` longtext COLLATE utf8mb4_unicode_ci,
+  `fee_lines` longtext COLLATE utf8mb4_unicode_ci,
+  `coupon_lines` longtext COLLATE utf8mb4_unicode_ci,
+  `refunds` longtext COLLATE utf8mb4_unicode_ci,
   `payment_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_editable` tinyint(4) DEFAULT NULL,
   `needs_payment` tinyint(4) DEFAULT NULL,
@@ -285,33 +285,34 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `orders`
+-- Đang đổ dữ liệu cho bảng `orders`
 --
 
 INSERT INTO `orders` (`id`, `order_id`, `site_id`, `status`, `currency`, `version`, `prices_include_tax`, `date_created`, `date_modified`, `discount_total`, `discount_tax`, `shipping_total`, `shipping_tax`, `cart_tax`, `total`, `total_tax`, `customer_id`, `order_key`, `payment_method`, `billing`, `shipping`, `payment_method_title`, `transaction_id`, `customer_ip_address`, `customer_user_agent`, `created_via`, `customer_note`, `date_completed`, `date_paid`, `cart_hash`, `number`, `meta_data`, `line_items`, `tax_lines`, `shipping_lines`, `fee_lines`, `coupon_lines`, `refunds`, `payment_url`, `is_editable`, `needs_payment`, `needs_processing`, `date_created_gmt`, `date_modified_gmt`, `date_completed_gmt`, `date_paid_gmt`, `currency_symbol`, `parent_id`) VALUES
 (20, 1514, 10, 'completed', 'USD', '7.0.0', '0', '2022-11-04 21:36:46', '2022-11-04 21:40:42', 0, 0, 5.99, 0, 0, 25.94, 0, 1, 'wc_order_x0kzYgv8d9mgS', 'stripe', '{\"first_name\":\"test\",\"last_name\":\"test\",\"company\":\"test\",\"address_1\":\"test\",\"address_2\":\"\",\"city\":\"test\",\"state\":\"AL\",\"postcode\":\"00084\",\"country\":\"US\",\"email\":\"admin@gmail.com\",\"phone\":\"0123456789\"}', '{\"first_name\":\"test\",\"last_name\":\"test\",\"company\":\"test\",\"address_1\":\"test\",\"address_2\":\"\",\"city\":\"test\",\"state\":\"AL\",\"postcode\":\"00084\",\"country\":\"US\",\"phone\":\"\"}', 'Credit Card (Stripe)', 'ch_3M0R0nLFT5yoGBpX0USuWF8g', '14.167.121.144', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0', 'checkout', '', '2022-11-04 21:40:42', '2022-11-04 21:36:51', '531a9412109ea966e176de9050c5afac', '1514', '[{\"id\":5123,\"key\":\"is_vat_exempt\",\"value\":\"no\"},{\"id\":5124,\"key\":\"_stripe_customer_id\",\"value\":\"cus_M1zBqO6W5zsSmT\"},{\"id\":5125,\"key\":\"_stripe_source_id\",\"value\":\"src_1LJvDLLFT5yoGBpXB297uSt5\"},{\"id\":5126,\"key\":\"_stripe_intent_id\",\"value\":\"pi_3M0R0nLFT5yoGBpX03JeFbOL\"},{\"id\":5127,\"key\":\"_stripe_charge_captured\",\"value\":\"yes\"},{\"id\":5128,\"key\":\"_stripe_fee\",\"value\":\"1.05\"},{\"id\":5129,\"key\":\"_stripe_net\",\"value\":\"24.89\"},{\"id\":5130,\"key\":\"_stripe_currency\",\"value\":\"USD\"},{\"id\":5138,\"key\":\"_new_order_email_sent\",\"value\":\"true\"},{\"id\":5139,\"key\":\"_ga_tracked\",\"value\":\"1\"}]', '[{\"id\":25,\"name\":\"Chicago shirt - chicago flag shirt men premium tee\",\"product_id\":660,\"variation_id\":0,\"quantity\":1,\"tax_class\":\"\",\"subtotal\":\"19.95\",\"subtotal_tax\":\"0.00\",\"total\":\"19.95\",\"total_tax\":\"0.00\",\"taxes\":[],\"meta_data\":[{\"id\":224,\"key\":\"color\",\"value\":\"Asphalt\",\"display_key\":\"color\",\"display_value\":\"Asphalt\"},{\"id\":225,\"key\":\"size\",\"value\":\"S\",\"display_key\":\"size\",\"display_value\":\"S\"}],\"sku\":\"\",\"price\":19.95,\"image\":{\"id\":660,\"src\":\"https:\\/\\/m.media-amazon.com\\/images\\/I\\/A13usaonutL._CLa|2140,2000|81UbNufBwoL.png|0,0,2140,2000+0.0,0.0,2140.0,2000.0._UL792_.png\"},\"parent_name\":null}]', '[]', '[{\"id\":26,\"method_title\":\"Standard shipping from United States\",\"method_id\":\"flat_rate\",\"instance_id\":\"1\",\"total\":\"5.99\",\"total_tax\":\"0.00\",\"taxes\":[],\"meta_data\":[{\"id\":231,\"key\":\"Items\",\"value\":\"Chicago shirt - chicago flag shirt men premium tee &times; 1\",\"display_key\":\"Items\",\"display_value\":\"Chicago shirt - chicago flag shirt men premium tee &times; 1\"}]}]', '[]', '[]', '[]', 'https://nacamio.com/checkout/order-pay/1514/?pay_for_order=true&key=wc_order_x0kzYgv8d9mgS', 0, 0, 1, '2022-11-04 14:36:46', '2022-11-04 14:40:42', '2022-11-04 14:40:42', '2022-11-04 14:36:51', '$', 0),
-(21, 1513, 10, 'on-hold', 'USD', '7.0.0', '0', '2022-11-04 21:34:38', '2022-11-04 21:45:06', 0, 0, 5.99, 0, 0, 25.94, 0, 1, 'wc_order_thelGFQQLPVXx', 'stripe', '{\"first_name\":\"test\",\"last_name\":\"test\",\"company\":\"test\",\"address_1\":\"test\",\"address_2\":\"\",\"city\":\"test\",\"state\":\"AL\",\"postcode\":\"00084\",\"country\":\"US\",\"email\":\"admin@gmail.com\",\"phone\":\"0123456789\"}', '{\"first_name\":\"test\",\"last_name\":\"test\",\"company\":\"test\",\"address_1\":\"test\",\"address_2\":\"\",\"city\":\"test\",\"state\":\"AL\",\"postcode\":\"00084\",\"country\":\"US\",\"phone\":\"\"}', 'Credit Card (Stripe)', 'ch_3M0QyjLFT5yoGBpX1JMK3CKB', '14.167.121.144', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0', 'checkout', '', NULL, '2022-11-04 21:34:43', '531a9412109ea966e176de9050c5afac', '1513', '[{\"id\":5069,\"key\":\"is_vat_exempt\",\"value\":\"no\"},{\"id\":5070,\"key\":\"_stripe_customer_id\",\"value\":\"cus_M1zBqO6W5zsSmT\"},{\"id\":5071,\"key\":\"_stripe_source_id\",\"value\":\"src_1LJvDLLFT5yoGBpXB297uSt5\"},{\"id\":5072,\"key\":\"_stripe_intent_id\",\"value\":\"pi_3M0QyjLFT5yoGBpX1TiJvtBy\"},{\"id\":5073,\"key\":\"_stripe_charge_captured\",\"value\":\"yes\"},{\"id\":5074,\"key\":\"_stripe_fee\",\"value\":\"1.05\"},{\"id\":5075,\"key\":\"_stripe_net\",\"value\":\"24.89\"},{\"id\":5076,\"key\":\"_stripe_currency\",\"value\":\"USD\"},{\"id\":5084,\"key\":\"_new_order_email_sent\",\"value\":\"true\"},{\"id\":5085,\"key\":\"_ga_tracked\",\"value\":\"1\"}]', '[{\"id\":23,\"name\":\"Chicago shirt - chicago flag shirt men premium tee\",\"product_id\":660,\"variation_id\":0,\"quantity\":1,\"tax_class\":\"\",\"subtotal\":\"19.95\",\"subtotal_tax\":\"0.00\",\"total\":\"19.95\",\"total_tax\":\"0.00\",\"taxes\":[],\"meta_data\":[{\"id\":207,\"key\":\"color\",\"value\":\"Asphalt\",\"display_key\":\"color\",\"display_value\":\"Asphalt\"},{\"id\":208,\"key\":\"size\",\"value\":\"S\",\"display_key\":\"size\",\"display_value\":\"S\"}],\"sku\":\"\",\"price\":19.95,\"image\":{\"id\":660,\"src\":\"https:\\/\\/m.media-amazon.com\\/images\\/I\\/A13usaonutL._CLa|2140,2000|81UbNufBwoL.png|0,0,2140,2000+0.0,0.0,2140.0,2000.0._UL792_.png\"},\"parent_name\":null}]', '[]', '[{\"id\":24,\"method_title\":\"Standard shipping from United States\",\"method_id\":\"flat_rate\",\"instance_id\":\"1\",\"total\":\"5.99\",\"total_tax\":\"0.00\",\"taxes\":[],\"meta_data\":[{\"id\":214,\"key\":\"Items\",\"value\":\"Chicago shirt - chicago flag shirt men premium tee &times; 1\",\"display_key\":\"Items\",\"display_value\":\"Chicago shirt - chicago flag shirt men premium tee &times; 1\"}]}]', '[]', '[]', '[]', 'https://nacamio.com/checkout/order-pay/1513/?pay_for_order=true&key=wc_order_thelGFQQLPVXx', 1, 0, 1, '2022-11-04 14:34:38', '2022-11-04 14:45:06', NULL, '2022-11-04 14:34:43', '$', 0);
+(21, 1513, 10, 'on-hold', 'USD', '7.0.0', '0', '2022-11-04 21:34:38', '2022-11-04 21:45:06', 0, 0, 5.99, 0, 0, 25.94, 0, 1, 'wc_order_thelGFQQLPVXx', 'stripe', '{\"billing_first_name\":\"test\",\"billing_last_name\":\"test\",\"billing_company\":\"test\",\"billing_address_1\":\"test\",\"billing_address_2\":\"\",\"billing_city\":\"test\",\"billing_state\":\"AL\",\"billing_postcode\":\"00084\",\"billing_country\":\"US\",\"billing_email\":\"admin@gmail.com\",\"billing_phone\":\"0123456789\"}', '{\"shipping_first_name\":\"test\",\"shipping_last_name\":\"test\",\"shipping_company\":\"test\",\"shipping_address_1\":\"test\",\"shipping_address_2\":\"\",\"shipping_city\":\"test\",\"shipping_state\":\"AL\",\"shipping_postcode\":\"00084\",\"shipping_country\":\"US\",\"shipping_phone\":\"\"}', 'Credit Card (Stripe)', 'ch_3M0QyjLFT5yoGBpX1JMK3CKB', '14.167.121.144', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0', 'checkout', '', NULL, '2022-11-04 21:34:43', '531a9412109ea966e176de9050c5afac', '1513', '[{\"id\":5069,\"key\":\"is_vat_exempt\",\"value\":\"no\"},{\"id\":5070,\"key\":\"_stripe_customer_id\",\"value\":\"cus_M1zBqO6W5zsSmT\"},{\"id\":5071,\"key\":\"_stripe_source_id\",\"value\":\"src_1LJvDLLFT5yoGBpXB297uSt5\"},{\"id\":5072,\"key\":\"_stripe_intent_id\",\"value\":\"pi_3M0QyjLFT5yoGBpX1TiJvtBy\"},{\"id\":5073,\"key\":\"_stripe_charge_captured\",\"value\":\"yes\"},{\"id\":5074,\"key\":\"_stripe_fee\",\"value\":\"1.05\"},{\"id\":5075,\"key\":\"_stripe_net\",\"value\":\"24.89\"},{\"id\":5076,\"key\":\"_stripe_currency\",\"value\":\"USD\"},{\"id\":5084,\"key\":\"_new_order_email_sent\",\"value\":\"true\"},{\"id\":5085,\"key\":\"_ga_tracked\",\"value\":\"1\"}]', '[{\"id\":23,\"name\":\"Chicago shirt - chicago flag shirt men premium tee\",\"product_id\":660,\"variation_id\":0,\"quantity\":1,\"tax_class\":\"\",\"subtotal\":\"19.95\",\"subtotal_tax\":\"0.00\",\"total\":\"19.95\",\"total_tax\":\"0.00\",\"taxes\":[],\"meta_data\":[{\"id\":207,\"key\":\"color\",\"value\":\"Asphalt\",\"display_key\":\"color\",\"display_value\":\"Asphalt\"},{\"id\":208,\"key\":\"size\",\"value\":\"S\",\"display_key\":\"size\",\"display_value\":\"S\"}],\"sku\":\"\",\"price\":19.95,\"image\":{\"id\":660,\"src\":\"https:\\/\\/m.media-amazon.com\\/images\\/I\\/A13usaonutL._CLa|2140,2000|81UbNufBwoL.png|0,0,2140,2000+0.0,0.0,2140.0,2000.0._UL792_.png\"},\"parent_name\":null}]', '[]', '[{\"id\":24,\"method_title\":\"Standard shipping from United States\",\"method_id\":\"flat_rate\",\"instance_id\":\"1\",\"total\":\"5.99\",\"total_tax\":\"0.00\",\"taxes\":[],\"meta_data\":[{\"id\":214,\"key\":\"Items\",\"value\":\"Chicago shirt - chicago flag shirt men premium tee &times; 1\",\"display_key\":\"Items\",\"display_value\":\"Chicago shirt - chicago flag shirt men premium tee &times; 1\"}]}]', '[]', '[]', '[]', 'https://nacamio.com/checkout/order-pay/1513/?pay_for_order=true&key=wc_order_thelGFQQLPVXx', 1, 0, 1, '2022-11-04 14:34:38', '2022-11-04 14:45:06', NULL, '2022-11-04 14:34:43', '$', 0),
+(22, 1511, 10, 'pending', 'USD', '7.0.0', '0', '2022-11-04 20:14:26', '2022-11-04 20:14:26', 0, 0, 5.99, 0, 0, 27.94, 0, 1, 'wc_order_hwkIeI7JaTHlX', 'stripe', '{\"billing_first_name\":\"test\",\"billing_last_name\":\"test\",\"billing_company\":\"test\",\"billing_address_1\":\"test\",\"billing_address_2\":\"test\",\"billing_city\":\"test\",\"billing_state\":\"AL\",\"billing_postcode\":\"00084\",\"billing_country\":\"US\",\"billing_phone\":\"0123456789\"}', '{\"shipping_first_name\":\"test\",\"shipping_last_name\":\"test\",\"shipping_company\":\"test\",\"shipping_address_1\":\"test\",\"shipping_address_2\":\"test2\",\"shipping_city\":\"test\",\"shipping_state\":\"AL\",\"shipping_postcode\":\"00084\",\"shipping_country\":\"US\",\"shipping_phone\":\"1234\"}', 'Credit Card (Stripe)', '', '14.167.121.144', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0', 'checkout', '', NULL, NULL, 'dac6aefbefc9c9f583051ebe4f328c61', '1511', '[{\"id\":4972,\"key\":\"is_vat_exempt\",\"value\":\"no\"}]', '[]', '[]', '[]', '[]', '[]', '[]', 'https://nacamio.com/checkout/order-pay/1511/?pay_for_order=true&key=wc_order_hwkIeI7JaTHlX', 1, 1, 0, '2022-11-04 13:14:26', '2022-11-04 13:14:26', NULL, NULL, '$', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pages`
+-- Cấu trúc bảng cho bảng `pages`
 --
 
 CREATE TABLE `pages` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci,
   `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `pages`
+-- Đang đổ dữ liệu cho bảng `pages`
 --
 
 INSERT INTO `pages` (`id`, `title`, `slug`, `content`, `seo_title`, `seo_description`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -320,7 +321,7 @@ INSERT INTO `pages` (`id`, `title`, `slug`, `content`, `seo_title`, `seo_descrip
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_resets`
+-- Cấu trúc bảng cho bảng `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -332,7 +333,7 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permissions`
+-- Cấu trúc bảng cho bảng `permissions`
 --
 
 CREATE TABLE `permissions` (
@@ -344,7 +345,7 @@ CREATE TABLE `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `permissions`
+-- Đang đổ dữ liệu cho bảng `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -416,7 +417,7 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personal_access_tokens`
+-- Cấu trúc bảng cho bảng `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -425,7 +426,7 @@ CREATE TABLE `personal_access_tokens` (
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -435,7 +436,7 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Cấu trúc bảng cho bảng `posts`
 --
 
 CREATE TABLE `posts` (
@@ -447,7 +448,7 @@ CREATE TABLE `posts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Cấu trúc bảng cho bảng `roles`
 --
 
 CREATE TABLE `roles` (
@@ -459,7 +460,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `roles`
+-- Đang đổ dữ liệu cho bảng `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -471,7 +472,7 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role_has_permissions`
+-- Cấu trúc bảng cho bảng `role_has_permissions`
 --
 
 CREATE TABLE `role_has_permissions` (
@@ -480,7 +481,7 @@ CREATE TABLE `role_has_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `role_has_permissions`
+-- Đang đổ dữ liệu cho bảng `role_has_permissions`
 --
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
@@ -517,32 +518,21 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (44, 1),
 (45, 1),
 (46, 1),
-(46, 3),
 (47, 1),
 (48, 1),
 (49, 1),
 (50, 1),
 (51, 1),
 (56, 1),
-(56, 4),
 (57, 1),
-(57, 4),
 (58, 1),
-(58, 4),
 (59, 1),
-(59, 4),
 (60, 1),
-(60, 4),
 (61, 1),
-(61, 4),
 (62, 1),
-(62, 4),
 (63, 1),
 (64, 1),
-(64, 3),
-(64, 4),
 (65, 1),
-(65, 4),
 (66, 1),
 (67, 1),
 (68, 1),
@@ -558,12 +548,23 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (78, 1),
 (79, 1),
 (80, 1),
-(81, 1);
+(81, 1),
+(46, 3),
+(64, 3),
+(56, 4),
+(57, 4),
+(58, 4),
+(59, 4),
+(60, 4),
+(61, 4),
+(62, 4),
+(64, 4),
+(65, 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `settings`
+-- Cấu trúc bảng cho bảng `settings`
 --
 
 CREATE TABLE `settings` (
@@ -571,7 +572,7 @@ CREATE TABLE `settings` (
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `value` text COLLATE utf8mb4_unicode_ci,
   `field` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -579,7 +580,7 @@ CREATE TABLE `settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `settings`
+-- Đang đổ dữ liệu cho bảng `settings`
 --
 
 INSERT INTO `settings` (`id`, `key`, `name`, `description`, `value`, `field`, `active`, `created_at`, `updated_at`) VALUES
@@ -599,26 +600,26 @@ INSERT INTO `settings` (`id`, `key`, `name`, `description`, `value`, `field`, `a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sites`
+-- Cấu trúc bảng cho bảng `sites`
 --
 
 CREATE TABLE `sites` (
   `id` int(11) NOT NULL,
   `api_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `product_api_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_start_id` int(11) DEFAULT 0,
-  `product_end_id` int(11) DEFAULT 0,
-  `product_limit_per_call` int(11) DEFAULT 1,
-  `product_api_next_page` int(11) DEFAULT 0,
+  `product_start_id` int(11) DEFAULT '0',
+  `product_end_id` int(11) DEFAULT '0',
+  `product_limit_per_call` int(11) DEFAULT '1',
+  `product_api_next_page` int(11) DEFAULT '0',
   `product_call_interval` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `product_detail_api_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_detail_limit_per_call` int(11) DEFAULT 1,
-  `import_to_wp_limit_per_call` int(11) DEFAULT 1,
+  `product_detail_limit_per_call` int(11) DEFAULT '1',
+  `import_to_wp_limit_per_call` int(11) DEFAULT '1',
   `product_detail_call_interval` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `import_to_wp_interval` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `site_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tagline` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `topbar_content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `topbar_content` text COLLATE utf8mb4_unicode_ci,
   `site_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `site_domain` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `administration_email_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -626,25 +627,25 @@ CREATE TABLE `sites` (
   `contact_email_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `site_open_hours` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `web_hook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_tags` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_events` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `site_map` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_tags` text COLLATE utf8mb4_unicode_ci,
+  `product_events` text COLLATE utf8mb4_unicode_ci,
+  `site_map` text COLLATE utf8mb4_unicode_ci,
   `woocommerce_consumer_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `woocommerce_consumer_secret` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `html_scripts_header` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `html_scripts_footer` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `html_scripts_after_body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `html_scripts_before_body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `html_scripts_header` text COLLATE utf8mb4_unicode_ci,
+  `html_scripts_footer` text COLLATE utf8mb4_unicode_ci,
+  `html_scripts_after_body` text COLLATE utf8mb4_unicode_ci,
+  `html_scripts_before_body` text COLLATE utf8mb4_unicode_ci,
   `google_api_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `facebook_api_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `search_config_active` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'yes',
-  `search_config_keywords` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shipper_methods_options` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `search_config_keywords` text COLLATE utf8mb4_unicode_ci,
+  `shipper_methods_options` text COLLATE utf8mb4_unicode_ci,
   `last_sync` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `sites`
+-- Đang đổ dữ liệu cho bảng `sites`
 --
 
 INSERT INTO `sites` (`id`, `api_key`, `product_api_url`, `product_start_id`, `product_end_id`, `product_limit_per_call`, `product_api_next_page`, `product_call_interval`, `product_detail_api_url`, `product_detail_limit_per_call`, `import_to_wp_limit_per_call`, `product_detail_call_interval`, `import_to_wp_interval`, `site_title`, `tagline`, `topbar_content`, `site_address`, `site_domain`, `administration_email_address`, `site_phone`, `contact_email_address`, `site_open_hours`, `web_hook`, `product_tags`, `product_events`, `site_map`, `woocommerce_consumer_key`, `woocommerce_consumer_secret`, `html_scripts_header`, `html_scripts_footer`, `html_scripts_after_body`, `html_scripts_before_body`, `google_api_key`, `facebook_api_key`, `search_config_active`, `search_config_keywords`, `shipper_methods_options`, `last_sync`) VALUES
@@ -653,7 +654,7 @@ INSERT INTO `sites` (`id`, `api_key`, `product_api_url`, `product_start_id`, `pr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tags`
+-- Cấu trúc bảng cho bảng `tags`
 --
 
 CREATE TABLE `tags` (
@@ -661,13 +662,13 @@ CREATE TABLE `tags` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tags`
+-- Đang đổ dữ liệu cho bảng `tags`
 --
 
 INSERT INTO `tags` (`id`, `name`, `slug`, `seo_title`, `seo_description`, `created_at`, `updated_at`) VALUES
@@ -677,7 +678,7 @@ INSERT INTO `tags` (`id`, `name`, `slug`, `seo_title`, `seo_description`, `creat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Cấu trúc bảng cho bảng `users`
 --
 
 CREATE TABLE `users` (
@@ -693,7 +694,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Đang đổ dữ liệu cho bảng `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `site_id`) VALUES
@@ -702,11 +703,11 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (3, 'Orders Manager', 'order@gmail.com', NULL, '$2y$10$U9KquiXxs2kDuDyk9oFSKuRImNmmfZVk7R7mKINjt/92BxNtySAh2', NULL, '2022-11-03 06:37:20', '2022-11-03 06:37:20', NULL);
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `categories`
+-- Chỉ mục cho bảng `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
@@ -714,7 +715,7 @@ ALTER TABLE `categories`
   ADD UNIQUE KEY `categories_slug_unique` (`slug`);
 
 --
--- Indexes for table `events`
+-- Chỉ mục cho bảng `events`
 --
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id`),
@@ -722,72 +723,72 @@ ALTER TABLE `events`
   ADD UNIQUE KEY `events_slug_unique` (`slug`);
 
 --
--- Indexes for table `failed_jobs`
+-- Chỉ mục cho bảng `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `jobs`
+-- Chỉ mục cho bảng `jobs`
 --
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jobs_queue_index` (`queue`);
 
 --
--- Indexes for table `menu_items`
+-- Chỉ mục cho bảng `menu_items`
 --
 ALTER TABLE `menu_items`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `migrations`
+-- Chỉ mục cho bảng `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `model_has_permissions`
+-- Chỉ mục cho bảng `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
   ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
--- Indexes for table `model_has_roles`
+-- Chỉ mục cho bảng `model_has_roles`
 --
 ALTER TABLE `model_has_roles`
   ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
--- Indexes for table `orders`
+-- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pages`
+-- Chỉ mục cho bảng `pages`
 --
 ALTER TABLE `pages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `password_resets`
+-- Chỉ mục cho bảng `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `permissions`
+-- Chỉ mục cho bảng `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
 
 --
--- Indexes for table `personal_access_tokens`
+-- Chỉ mục cho bảng `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -795,40 +796,40 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `posts`
+-- Chỉ mục cho bảng `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `roles`
+-- Chỉ mục cho bảng `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`);
 
 --
--- Indexes for table `role_has_permissions`
+-- Chỉ mục cho bảng `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`role_id`),
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
--- Indexes for table `settings`
+-- Chỉ mục cho bảng `settings`
 --
 ALTER TABLE `settings`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `settings_key_unique` (`key`);
 
 --
--- Indexes for table `sites`
+-- Chỉ mục cho bảng `sites`
 --
 ALTER TABLE `sites`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tags`
+-- Chỉ mục cho bảng `tags`
 --
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`),
@@ -836,130 +837,130 @@ ALTER TABLE `tags`
   ADD UNIQUE KEY `tags_slug_unique` (`slug`);
 
 --
--- Indexes for table `users`
+-- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `events`
+-- AUTO_INCREMENT cho bảng `events`
 --
 ALTER TABLE `events`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT cho bảng `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jobs`
+-- AUTO_INCREMENT cho bảng `jobs`
 --
 ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `menu_items`
+-- AUTO_INCREMENT cho bảng `menu_items`
 --
 ALTER TABLE `menu_items`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT for table `pages`
+-- AUTO_INCREMENT cho bảng `pages`
 --
 ALTER TABLE `pages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `permissions`
+-- AUTO_INCREMENT cho bảng `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
--- AUTO_INCREMENT for table `personal_access_tokens`
+-- AUTO_INCREMENT cho bảng `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT cho bảng `posts`
 --
 ALTER TABLE `posts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT cho bảng `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `settings`
+-- AUTO_INCREMENT cho bảng `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `sites`
+-- AUTO_INCREMENT cho bảng `sites`
 --
 ALTER TABLE `sites`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `tags`
+-- AUTO_INCREMENT cho bảng `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `model_has_permissions`
+-- Các ràng buộc cho bảng `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
   ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `model_has_roles`
+-- Các ràng buộc cho bảng `model_has_roles`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `role_has_permissions`
+-- Các ràng buộc cho bảng `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,

@@ -30,4 +30,5 @@ Route::group([
     Route::post('syncs/doSync',[\App\Http\Controllers\Admin\SyncController::class,'doSync'])->name('syncs.doSync');
     Route::resource('orders',\App\Http\Controllers\Admin\SiteOrderController::class);
     Route::resource('shippings',\App\Http\Controllers\Admin\SiteShippingController::class);
+    Route::resource('products',\App\Http\Controllers\Admin\SiteProductController::class);
 });

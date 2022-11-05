@@ -1,0 +1,1 @@
+<a href="{{ backpack_url('site') }} " class="btn btn-xs btn-info"><i class="la la-arrow-left"></i> Back</a>

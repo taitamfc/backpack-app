@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Site extends Model
+class SiteJob extends Model
 {
     use CrudTrait;
 
@@ -15,9 +15,9 @@ class Site extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'sites';
+    protected $table = 'site_jobs';
     // protected $primaryKey = 'id';
-    public $timestamps = false;
+    // public $timestamps = false;
     protected $guarded = ['id'];
     // protected $fillable = [];
     // protected $hidden = [];
@@ -28,32 +28,18 @@ class Site extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function sync_action_button($crud = false)
-    {
-        return '<a href="'.route('syncs.sync',$this->id).'" class="btn btn-sm btn-link"><i class="la la-sync"></i>Sync</a>';
-    }
-    public function orders_action_button($crud = false)
-    {
-        return '<a href="'. backpack_url('order').'?site_id='. $this->id.'" class="btn btn-sm btn-link"><i class="la la-files-o"></i>Orders</a>';
-    }
-    public function shippings_action_action_button($crud = false)
-    {
-        return '<a href="'. route('shippings.index').'?site_id='. $this->id.'" class="btn btn-sm btn-link"><i class="la la-files-o"></i>Shippings</a>';
-    }
-    public function products_action_action_button($crud = false)
-    {
-        return '<a href="'. route('products.index').'?site_id='. $this->id.'" class="btn btn-sm btn-link"><i class="la la-files-o"></i>Products</a>';
-    }
-    public function jobs_action_action_button($crud = false)
-    {
-        return '<a href="'. backpack_url('site-job').'?site_id='. $this->id.'" class="btn btn-sm btn-link"><i class="la la-files-o"></i>Jobs</a>';
-    }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function getSiteName() {
+        return Site::select('site_domain')->where('id',$this->site_id)->first()->site_domain;
+    }
+    public function getProgress() {
+        return $this->product_api_next_page.'/10';
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

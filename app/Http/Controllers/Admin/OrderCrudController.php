@@ -40,6 +40,8 @@ class OrderCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->addButton('top', 'back', 'view', 'end');
+
         $this->crud->removeButton('create');
         $this->crud->removeButton('show');
         $this->crud->removeButton('delete');

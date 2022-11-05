@@ -1,8 +1,3 @@
-<style>
-    .table-top {
-	display: none;
-}
-</style>
 <?php
 $f_request = $crud->custom_filter_request;
 $custom_params = $crud->custom_params;

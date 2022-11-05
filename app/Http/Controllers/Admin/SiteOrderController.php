@@ -22,7 +22,7 @@ class SiteOrderController extends Controller
             abort(404);
         }
         $site = $this->get_site_config($site_id);
-        $orders = Order::all(['page'=>1]);
+        $orders = Order::all();
         // dd($orders);
         $params = [
             'orders'    => $orders,

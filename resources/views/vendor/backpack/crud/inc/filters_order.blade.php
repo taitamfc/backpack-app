@@ -12,7 +12,7 @@ $sites = $custom_params['sites'] ?? [];
 ?>
 <form action="" method="get">
     <div class="row mb-2">
-        <div class="col-lg-3">
+        <div class="col">
             <select class="form-control" name="site_id" id="">
                 <option value="">All sites</option>
                 @foreach( $sites as $site_id => $site_domain )
@@ -20,7 +20,7 @@ $sites = $custom_params['sites'] ?? [];
                 @endforeach
             </select>
         </div>
-        <div class="col-lg-3">
+        <div class="col">
             <select name="status" class="form-control">
                 <option value="">All Order statues</option>
                 <option value="pending" @selected( $f_request['status'] == 'pending' )>Pending payment</option>
@@ -33,10 +33,13 @@ $sites = $custom_params['sites'] ?? [];
                 <option value="checkout-draft" @selected( $f_request['status'] == 'checkout-draft' )>Draft</option>
             </select>
         </div>
-        <div class="col-lg-2">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Billing email" name="billing_email" value="{{ $f_request['billing_email'] ?? '' }}">
+        </div>
+        <div class="col">
             <input type="date" class="form-control" name="date_start" value="{{ $f_request['date_start'] ?? '' }}">
         </div>
-        <div class="col-lg-2">
+        <div class="col">
             <input type="date" class="form-control" name="date_end" value="{{ $f_request['date_end'] ?? '' }}">
         </div>
         <div class="col-lg-1 ">

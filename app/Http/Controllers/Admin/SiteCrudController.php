@@ -56,11 +56,11 @@ class SiteCrudController extends CrudController
         }
 
         // Check user is have permisson on single site
-        if( !backpack_user()->hasPermissionTo('Sites-index') ){
-            if( backpack_user()->hasPermissionTo('Single Site-index') ){
+        // if( !backpack_user()->hasPermissionTo('Sites-index') ){
+            if( backpack_user()->hasPermissionTo('Single Site-index') && backpack_user()->site_id ){
                 $this->crud->addClause('where', 'id', '=', backpack_user()->site_id);
             }
-        }
+        // }
 
 
         if( backpack_user()->hasPermissionTo('Single Site-sync') ){

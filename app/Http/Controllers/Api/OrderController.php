@@ -33,17 +33,15 @@ class OrderController extends Controller
 
                 $billing = [];
                 foreach( $order['billing'] as $f => $v ){
-                    $billing['billing_'.$f] = $v;
+                    $order['billing_'.$f] = $v;
                 }
-                $order['billing'] = $billing;
-                $order['billing'] = json_encode($order['billing']);
+                unset($order['billing']);
 
                 $shipping = [];
                 foreach( $order['shipping'] as $f => $v ){
-                    $shipping['shipping_'.$f] = $v;
+                    $order['shipping_'.$f] = $v;
                 }
-                $order['shipping'] = $shipping;
-                $order['shipping'] = json_encode($order['shipping']);
+                unset($order['shipping']);
                 $order['meta_data'] = json_encode($order['meta_data']);
                 $order['line_items'] = json_encode($order['line_items']);
                 $order['tax_lines'] = json_encode($order['tax_lines']);

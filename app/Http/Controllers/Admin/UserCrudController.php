@@ -181,7 +181,8 @@ class UserCrudController extends CrudController
                 'name' => 'site_id',
                 'type'        => 'select_from_array',
                 'options'     => $sites,
-                'label' => "Site manager"
+                'label' => "Site manager",
+                'hint'  => 'Leave empty means can manage all sites'
             ],
             [
                 // two interconnected entities

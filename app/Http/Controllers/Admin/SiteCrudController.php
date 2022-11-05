@@ -72,6 +72,9 @@ class SiteCrudController extends CrudController
         if( backpack_user()->hasPermissionTo('Single Site-shippings') ){
             $this->crud->addButtonFromModelFunction('line', 'shipping_action', 'shippings_action_action_button', 'end');
         }
+        // $this->crud->addButtonFromModelFunction('line', 'products_action', 'products_action_action_button', 'end');
+        $this->crud->addButtonFromModelFunction('line', 'jobs_action', 'jobs_action_action_button', 'end');
+
     }
 
     

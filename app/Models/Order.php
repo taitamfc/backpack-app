@@ -28,13 +28,15 @@ class Order extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
+    public function getSiteName() {
+        return Site::select('site_domain')->where('id',$this->site_id)->first()->site_domain;
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -52,4 +54,7 @@ class Order extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setBillingFirstNameAttribute($value) {
+        $this->attributes['billing_first_name'] = '123';
+    }
 }

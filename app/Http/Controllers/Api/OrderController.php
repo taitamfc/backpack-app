@@ -30,7 +30,19 @@ class OrderController extends Controller
                 config(['woocommerce.consumer_key' => $site->woocommerce_consumer_key]);
                 config(['woocommerce.consumer_secret' => $site->woocommerce_consumer_secret]);
                 $order = Order::find($order_id)->toArray();
+
+                $billing = [];
+                foreach( $order['billing'] as $f => $v ){
+                    $billing['billing_'.$f] = $v;
+                }
+                $order['billing'] = $billing;
                 $order['billing'] = json_encode($order['billing']);
+
+                $shipping = [];
+                foreach( $order['shipping'] as $f => $v ){
+                    $shipping['shipping_'.$f] = $v;
+                }
+                $order['shipping'] = $shipping;
                 $order['shipping'] = json_encode($order['shipping']);
                 $order['meta_data'] = json_encode($order['meta_data']);
                 $order['line_items'] = json_encode($order['line_items']);

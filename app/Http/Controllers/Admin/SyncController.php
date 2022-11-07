@@ -15,7 +15,7 @@ use App\Jobs\SyncSiteJobsJob;
 class SyncController extends Controller
 {
     private $site = null;
-    private $web_hook = 'http://__SITE_DOMAIN__/wp-admin/admin-ajax.php?action=LizadoCrm&controller=sync&task=sync&sync_type=';
+    private $web_hook = 'https://__SITE_DOMAIN__/wp-admin/admin-ajax.php?action=LizadoCrm&controller=sync&task=sync&sync_type=';
     public function index(Request $request,$type = 'all'){
         $synced_sites = $request->syncs ?? [];
 
@@ -61,29 +61,59 @@ class SyncController extends Controller
             'status'    => 'waitting'
         ],$data);
     }
-    private function syncASiteBK($site_id,$sync_type){
-        $site = Site::find($site_id);
-        $this->site     = $site;
-        $this->web_hook = str_replace('__SITE_DOMAIN__',$site->site_domain,$this->web_hook);
-        $this->sync_init_settings();
-        switch ($sync_type) {             
-            case 'event':
-                dispatch(new SyncSiteEventJob($this->site,'events',$this->web_hook));
-                break;
-            case 'category':
-                dispatch(new SyncSiteCategoryJob($this->site,'categories',$this->web_hook));
-                break;                            
-            default:
-                # code...
-                break;
-        }
-    }
+ 
 
+    // Handle Sync site tab
+    /*
+        general
+        site-info
+        woocommerce
+        search
+        scripts
+        integration
+        stripe
+        paypal
+    */
+    
+    public function sync(Request $request,$site_id = 0){
+        session(['sync_position' => 0]);
+        $synced_keys = $request->syncs ?? [];
+        
+        if(!$site_id){
+            abort(404);
+        }
+        $site = Site::find($site_id);
+        if( count($synced_keys) ){
+            Log::info('['.$site->site_domain.'] Start sycn');
+        }
+
+        $syncs = [
+            'init_settings' => 'Init Settings',
+            'general' => 'General',
+            'site-info' => 'Site info',
+            'woocommerce'    => 'Woocommerce',
+            'search'         => 'Search',
+            'scripts'        => 'Scripts',
+            'integration'    => 'Integration',
+            'stripe'    => 'Stripe',
+            'paypal'    => 'Paypal',
+            'shipping_options'    => 'Shipping Options ',
+        ];
+        
+        $params = [
+            'site'      => $site,
+            'site_id'   => $site_id,
+            'syncs'     => $syncs,
+            'synced_keys'  => $synced_keys,
+        ];
+        return view('admin.syncs.list',$params);
+    }
     public function syncAjax(Request $request,$site_id){
         $site = Site::find($site_id);
         $this->site = $site;
         $this->web_hook = str_replace('__SITE_DOMAIN__',$site->site_domain,$this->web_hook);
         $syncs = $request->syncs;
+
 
         $sync_position = session('sync_position', 0);
         // $sync_position = 4;
@@ -111,66 +141,17 @@ class SyncController extends Controller
         $res['sync_position'] = $sync_position;
         return response()->json($res);
     }
-    public function sync(Request $request,$site_id = 0){
-        session(['sync_position' => 0]);
-        $synced_keys = $request->syncs ?? [];
-        
-        if(!$site_id){
-            abort(404);
-        }
-        $site = Site::find($site_id);
-        if( count($synced_keys) ){
-            Log::info('['.$site->site_domain.'] Start sycn');
-        }
-
-        $syncs = [
-            'init_settings' => 'Init Settings',
-            'site_settings' => 'Site Settings',
-            'shipping_options' => 'Shipping Options',
-            'menu_items'    => 'Menu Items',
-            // 'pages'         => 'Pages',
-            'events'        => 'Events',
-            'categories'    => 'Categories',
-            'assign_product_tags'    => 'Assign Product Tags',
-        ];
-        
-        $params = [
-            'site'      => $site,
-            'site_id'   => $site_id,
-            'syncs'     => $syncs,
-            'synced_keys'  => $synced_keys,
-        ];
-        return view('admin.syncs.list',$params);
-    }
 
     private function syncByType($sync_type){
         switch ($sync_type) {
             case 'init_settings':
                 $res =  $this->sync_init_settings();
                 break;
-            case 'site_settings':
-                $res =  $this->sync_type('site_settings');
-                break;
             case 'shipping_options':
                 $res =  $this->sync_shipping_options();
                 break;
-            case 'menu_items':
-                $res =  $this->sync_type('menu_items');
-                break;
-            case 'pages':
-                $res =  $this->sync_pages();
-                break;                
-            case 'events':
-                $res =  $this->sync_type('events');
-                break;                
-            case 'categories':
-                $res =  $this->sync_type('categories');
-                break;                
-            case 'assign_product_tags':
-                $res =  $this->sync_type('assign_product_tags');
-                break;                
             default:
-                # code...
+                $res =  $this->sync_site_tab($sync_type);
                 break;
         }
         return $res;
@@ -192,19 +173,18 @@ class SyncController extends Controller
         }
         
     }
+    private function sync_type($type){
+        $response = Http::get($this->web_hook.$type);
+        return $response->json();
+    }
     private function sync_shipping_options(){
         $response = Http::asForm()->post($this->web_hook.'shipping_options', [
             'shipper_methods_options' => json_decode($this->site->shipper_methods_options,true)
         ]);
         return $response->json();
     }
-
-    private function sync_type($type){
-        $response = Http::get($this->web_hook.$type);
-        // echo $response;die();
+    private function sync_site_tab($type){
+        $response = Http::get($this->web_hook.'site_tab&tab='.$type);
         return $response->json();
     }
-
-
-
 }

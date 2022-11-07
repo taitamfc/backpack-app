@@ -97,8 +97,8 @@ class SiteJobCrudController extends CrudController
         $types = [
             'SyncMenu' => 'SyncMenu',
             'SyncEvent' => 'SyncEvent',
-            'SyncCategories' => 'SyncCategories',
-            'SyncTags' => 'SyncTags',
+            'SyncCategories' => 'SyncCategory',
+            // 'SyncTags' => 'SyncTags',
             'ImportProduct' => 'ImportProduct',
         ];
         $this->crud->addField(['name'=>'name','tab' => 'General']);

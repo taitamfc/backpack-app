@@ -12,9 +12,12 @@ class SiteController extends Controller
     public function index(Request $request)
     {
         $domain = $request->domain;
+        $showAll = $request->showAll;
         $site = Site::where('site_domain',$domain)->first();
+        if($showAll) {
+            return response()->json($site);
+        }
         return new SiteResource($site);
-        return response()->json($site);
     }
     public function store(Request $request)
     {
@@ -33,5 +36,5 @@ class SiteController extends Controller
     public function destroy($id)
     {
         //
-    }
+    }  
 }

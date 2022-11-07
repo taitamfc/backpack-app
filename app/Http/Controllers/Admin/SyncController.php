@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Site;
+use App\Models\SiteJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Jobs\SyncSiteEventJob;
 use App\Jobs\SyncSiteCategoryJob;
+use App\Jobs\SyncSiteJobsJob;
 
 class SyncController extends Controller
 {
@@ -39,6 +41,27 @@ class SyncController extends Controller
     }
 
     private function syncASite($site_id,$sync_type){
+        $site = Site::find($site_id);
+        if( $sync_type == 'site-job' ){
+            $this->site     = $site;
+            $this->web_hook = str_replace('__SITE_DOMAIN__',$site->site_domain,$this->web_hook);
+            $this->sync_init_settings();
+            dispatch(new SyncSiteJobsJob($this->site,'jobs',$this->web_hook));
+            return true;
+        }
+        $data = [
+            'site_id'   => $site_id,
+            'name'      => 'Sync '.$sync_type,
+            'type'      => 'Sync'.ucfirst($sync_type),
+            'status'    => 'waitting'
+        ];
+        $SiteJobObj = SiteJob::updateOrCreate([
+            'site_id' => $site_id,
+            'type'      => 'Sync'.ucfirst($sync_type),
+            'status'    => 'waitting'
+        ],$data);
+    }
+    private function syncASiteBK($site_id,$sync_type){
         $site = Site::find($site_id);
         $this->site     = $site;
         $this->web_hook = str_replace('__SITE_DOMAIN__',$site->site_domain,$this->web_hook);
@@ -154,10 +177,20 @@ class SyncController extends Controller
     }
 
     private function sync_init_settings(){
-        $response = Http::asForm()->post($this->web_hook.'init_settings', [
-            'web_hook' => config('settings.web_hook_admin')
-        ]);
-        return $response->json();
+        try {
+            $response = Http::asForm()->post($this->web_hook.'init_settings', [
+                'web_hook' => config('settings.web_hook_admin')
+            ]);
+            Log::info('['.$this->site->site_domain.'] - [init_settings]: Stop sync: '.json_encode($response->json()));
+            return $response->json();
+        } catch (\Exeption $e) {
+            $return = [
+                'next' => true,
+                'msg'  => $e->getMessage()
+            ];
+            return response()->json($return);
+        }
+        
     }
     private function sync_shipping_options(){
         $response = Http::asForm()->post($this->web_hook.'shipping_options', [

@@ -41,7 +41,7 @@ class SiteJobCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->crud->addButton('top', 'back', 'view', 'end');
-        $this->crud->addButton('top', 'sync', 'view', 'end');
+        // $this->crud->addButton('top', 'sync', 'view', 'end');
 
         $this->crud->removeButton('show');
 
@@ -75,11 +75,12 @@ class SiteJobCrudController extends CrudController
     {
         CRUD::setValidation([
             'name' => 'required|min:2',
-            'product_call_interval' => 'required',
-            'product_detail_call_interval' => 'required',
-            'import_to_wp_interval' => 'required',
+            // 'product_call_interval' => 'required',
+            // 'product_detail_call_interval' => 'required',
+            // 'import_to_wp_interval' => 'required',
             'status' => 'required',
             'site_id' => 'required',
+            'type' => 'required',
         ]);
         
         $sites = Site::all()->pluck('site_domain','id')->toArray();
@@ -88,12 +89,21 @@ class SiteJobCrudController extends CrudController
         ];
         $statuses = [
             'draft' => 'Draft',
+            'waitting' => 'Waitting',
             'working' => 'Working',
             'pause' => 'Pause',
             'completed' => 'Completed',
         ];
+        $types = [
+            'SyncMenu' => 'SyncMenu',
+            'SyncEvent' => 'SyncEvent',
+            'SyncCategories' => 'SyncCategories',
+            'SyncTags' => 'SyncTags',
+            'ImportProduct' => 'ImportProduct',
+        ];
         $this->crud->addField(['name'=>'name','tab' => 'General']);
-        $this->crud->addField(['name'=>'type','default'=>'ImportProduct','tab' => 'General']);
+        $this->crud->addField(['name'=>'type','type'=>'select_from_array','options' => $types,'tab' => 'General']);
+
         $this->crud->addField(['name'=>'site_id','type'=>'select_from_array','options' => $sites,'tab' => 'General']);
         $this->crud->addField(['name'=>'status','type'=>'select_from_array','options' => $statuses,'tab' => 'General']);
         $this->crud->addField(['name'=>'product_start_id','tab' => 'Import Setting']);

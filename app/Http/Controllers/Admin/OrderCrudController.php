@@ -15,8 +15,8 @@ use App\Models\Site;
 class OrderCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
@@ -242,5 +242,22 @@ class OrderCrudController extends CrudController
         $request = $this->crud->getRequest();
         $this->setupCreateOperation();
 
+    }
+
+    public function store()
+    {
+      // do something before validation, before save, before everything
+      $response = $this->traitStore();
+      // do something after save
+    //   dd(__METHOD__);
+      return $response;
+    }
+    public function update()
+    {
+      // do something before validation, before save, before everything
+      $response = $this->traitUpdate();
+      // do something after save
+      dd($this->crud->getRequest());            
+      return $response;
     }
 }

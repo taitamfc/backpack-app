@@ -24,3 +24,4 @@ Route::apiResource('events',\App\Http\Controllers\Api\EventController::class);
 Route::apiResource('categories',\App\Http\Controllers\Api\CategoryController::class);
 Route::apiResource('logs',\App\Http\Controllers\Api\LogController::class);
 Route::apiResource('orders',\App\Http\Controllers\Api\OrderController::class);
+Route::apiResource('jobs',\App\Http\Controllers\Api\SiteJobController::class);

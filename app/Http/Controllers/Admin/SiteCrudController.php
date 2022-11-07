@@ -100,18 +100,19 @@ class SiteCrudController extends CrudController
         $this->crud->addField(['name'=>'topbar_content','tab' => 'General']);
         $this->crud->addField(['name'=>'site_domain','tab' => 'General']);
         // $this->crud->addField(['name'=>'web_hook','tab' => 'General']);
-        $this->crud->addField(['name'=>'show_admin_bar','type'=>'checkbox','tab' => 'General']);
+        $this->crud->addField(['name'=>'api_key','tab' => 'General']);
+        $this->crud->addField(['name'=>'hide_admin_bar','type'=>'checkbox','tab' => 'General']);
 
 
-        $this->crud->addField(['name'=>'api_key','tab' => 'Api Setting']);
-        $this->crud->addField(['name'=>'product_start_id','tab' => 'Api Setting']);
-        $this->crud->addField(['name'=>'product_end_id','tab' => 'Api Setting']);
-        $this->crud->addField(['name'=>'product_limit_per_call','tab' => 'Api Setting']);
-        $this->crud->addField(['name'=>'product_call_interval','tab' => 'Api Setting']);
-        $this->crud->addField(['name'=>'product_detail_limit_per_call','tab' => 'Api Setting']);
-        $this->crud->addField(['name'=>'product_detail_call_interval','tab' => 'Api Setting']);
-        $this->crud->addField(['name'=>'import_to_wp_limit_per_call','tab' => 'Api Setting']);
-        $this->crud->addField(['name'=>'import_to_wp_interval','tab' => 'Api Setting']);
+        // $this->crud->addField(['name'=>'api_key','tab' => 'Api Setting']);
+        // $this->crud->addField(['name'=>'product_start_id','tab' => 'Api Setting']);
+        // $this->crud->addField(['name'=>'product_end_id','tab' => 'Api Setting']);
+        // $this->crud->addField(['name'=>'product_limit_per_call','tab' => 'Api Setting']);
+        // $this->crud->addField(['name'=>'product_call_interval','tab' => 'Api Setting']);
+        // $this->crud->addField(['name'=>'product_detail_limit_per_call','tab' => 'Api Setting']);
+        // $this->crud->addField(['name'=>'product_detail_call_interval','tab' => 'Api Setting']);
+        // $this->crud->addField(['name'=>'import_to_wp_limit_per_call','tab' => 'Api Setting']);
+        // $this->crud->addField(['name'=>'import_to_wp_interval','tab' => 'Api Setting']);
 
         $this->crud->addField(['name'=>'site_address','tab' => 'Site Info']);
         $this->crud->addField(['name'=>'site_phone','tab' => 'Site Info']);

@@ -6,7 +6,7 @@ use App\Http\Requests\OrderRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Models\Site;
-
+use Codexshaper\WooCommerce\Facades\Order;
 /**
  * Class OrderCrudController
  * @package App\Http\Controllers\Admin
@@ -112,6 +112,7 @@ class OrderCrudController extends CrudController
         ]);
         $statuses = ['pending','processing','on-hold','completed','cancelled','refunded','failed','checkout-draft'];
         $statuses = array_combine($statuses,$statuses);
+        $this->crud->addField(['name'=>'site_id','type' => 'hidden','tab' => 'Detail']);
         $this->crud->addField(['name'=>'order_id','tab' => 'Detail','attributes'=>['disabled' => 'disabled']]);
         $this->crud->addField(['name'=>'date_created','tab' => 'Detail']);
         $this->crud->addField(['name'=>'status','type' => 'select_from_array','options'=> $statuses ,'tab' => 'Detail']);
@@ -214,10 +215,11 @@ class OrderCrudController extends CrudController
 
    
 
-        $this->crud->addField(['name'=>'ywot_tracking_code','label'=>'Tracking code','tab' => 'Tracking','value'=> @$meta_datas['ywot_tracking_code']]);
-        $this->crud->addField(['name'=>'ywot_carrier_name','label'=>'Carrier name','tab' => 'Tracking','value'=> @$meta_datas['ywot_carrier_name']]);
-        $this->crud->addField(['name'=>'ywot_pick_up_date','label'=>'Pickup date','type' => 'date','tab' => 'Tracking','value'=> @$meta_datas['ywot_pick_up_date']]);
-        $this->crud->addField(['name'=>'ywot_carrier_url','label'=>'Carrier website link','tab' => 'Tracking','value'=> @$meta_datas['ywot_carrier_url']]);
+        $this->crud->addField(['name'=>'ywot_picked_up','type'=>'checkbox','label'=>'Tracking code','tab' => 'Tracking']);
+        $this->crud->addField(['name'=>'ywot_tracking_code','label'=>'Tracking code','tab' => 'Tracking']);
+        $this->crud->addField(['name'=>'ywot_pick_up_date','label'=>'Pickup date','type' => 'date','tab' => 'Tracking']);
+        $this->crud->addField(['name'=>'ywot_carrier_name','label'=>'Carrier name','tab' => 'Tracking']);
+        $this->crud->addField(['name'=>'ywot_carrier_url','label'=>'Carrier website link','tab' => 'Tracking']);
 
 
         // dd($currentEntry->meta_data);
@@ -254,10 +256,46 @@ class OrderCrudController extends CrudController
     }
     public function update()
     {
-      // do something before validation, before save, before everything
-      $response = $this->traitUpdate();
-      // do something after save
-      dd($this->crud->getRequest());            
-      return $response;
+        // do something before validation, before save, before everything
+        $response = $this->traitUpdate();
+        // do something after save - sync order to wp site
+        $currentEntry = $this->crud->getCurrentEntry();
+        $request = $this->crud->getRequest()->toArray();
+        $meta_datas = json_decode($currentEntry->meta_data,true);
+        foreach( $meta_datas as $key => $meta_data ){
+            if($meta_datas[$key]['key'] == 'ywot_tracking_code'){
+                $meta_datas[$key]['value'] = $request['ywot_tracking_code'];
+            }
+            if($meta_datas[$key]['key'] == 'ywot_pick_up_date'){
+                $meta_datas[$key]['value'] = $request['ywot_pick_up_date'];
+            }
+            if($meta_datas[$key]['key'] == 'ywot_picked_up'){
+                $meta_datas[$key]['value'] = $request['ywot_picked_up'];
+            }
+            if($meta_datas[$key]['key'] == 'ywot_carrier_name'){
+                $meta_datas[$key]['value'] = $request['ywot_carrier_name'];
+            }
+            if($meta_datas[$key]['key'] == 'ywot_carrier_url'){
+                $meta_datas[$key]['value'] = $request['ywot_carrier_url'];
+            }
+        }
+
+        $order_id = $currentEntry->order_id;
+        $site_id = $request['site_id'];
+        $site = $this->get_site_config($site_id);
+        $data     = [
+            'status' => $request['status'],
+            'meta_data' => $meta_datas,
+        ];
+        $order = Order::update($order_id, $data);  
+
+        return $response;
+    }
+    private function get_site_config($site_id = 0){
+        $site = Site::find($site_id);
+        config(['woocommerce.store_url' => 'https://'.$site->site_domain]);
+        config(['woocommerce.consumer_key' => $site->woocommerce_consumer_key]);
+        config(['woocommerce.consumer_secret' => $site->woocommerce_consumer_secret]);
+        return $site;
     }
 }

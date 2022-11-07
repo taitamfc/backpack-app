@@ -50,12 +50,25 @@ class OrderController extends Controller
                 $order['coupon_lines'] = json_encode($order['coupon_lines']);
                 $order['refunds'] = json_encode($order['refunds']);
                 $order['order_id'] = $order['id'];
+                $order['meta_data'] = json_decode($order['meta_data']);
+                $meta_datas = [];
+                foreach( $order['meta_data'] as $key => $meta_data ){
+                    $meta_datas[$meta_data->key] = $meta_data->value;
+                }
+                $order['meta_data'] = json_encode($order['meta_data']);
+                $order['ywot_tracking_code'] = $meta_datas['ywot_tracking_code'];
+                $order['ywot_pick_up_date'] = $meta_datas['ywot_pick_up_date'];
+                $order['ywot_picked_up'] = $meta_datas['ywot_picked_up'];
+                $order['ywot_carrier_name'] = $meta_datas['ywot_carrier_name'];
+                $order['ywot_carrier_url'] = $meta_datas['ywot_carrier_url'];
+
                 unset($order['_links']);
                 unset($order['id']);
-                $orderObj = OrderModel::updateOrCreate([
-                    'order_id' => $order_id,
+                $condition = [
+                    'order_id' => (int)$order_id,
                     'site_id' => $site->id,
-                ],$order);
+                ];
+                $orderObj = OrderModel::updateOrCreate($condition,$order);
                 return response()->json($orderObj);
                 break;
             

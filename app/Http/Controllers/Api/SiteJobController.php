@@ -24,7 +24,7 @@ class SiteJobController extends Controller
             case 'list':
                 $domain = $request->domain;
                 $site = Site::where('site_domain',$domain)->firstOrFail();
-                $items = SiteJob::where('status','waitting')
+                $items = SiteJob::whereIn('status',['waitting','working'])
                 ->where('site_id',$site->id)
                 ->get();
                 return response()->json($items);

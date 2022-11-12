@@ -6,7 +6,7 @@ use App\Http\Requests\SiteJobRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Models\Site;
-
+use Illuminate\Support\Facades\Http;
 /**
  * Class SiteJobCrudController
  * @package App\Http\Controllers\Admin
@@ -105,7 +105,17 @@ class SiteJobCrudController extends CrudController
         $this->crud->addField(['name'=>'type','type'=>'select_from_array','options' => $types,'tab' => 'General']);
 
         $this->crud->addField(['name'=>'site_id','type'=>'select_from_array','options' => $sites,'tab' => 'General']);
-        $this->crud->addField(['name'=>'status','type'=>'select_from_array','options' => $statuses,'tab' => 'General']);
+        //$this->crud->addField(['name'=>'status','type'=>'select_from_array','options' => $statuses,'tab' => 'General']);
+        $this->crud->addField(['name'=>'status','type'=>'select_from_array','options' => $statuses,'tab' => 'General','events'=>[
+            'saving' => function ($entry) {
+                if( $entry->status == 'waitting' ){
+                    $site = Site::find($entry->site_id);
+                    $web_hook = 'https://__SITE_DOMAIN__/wp-admin/admin-ajax.php?action=LizadoCrm&controller=sync&task=sync&sync_type=start_call_job';
+                    $web_hook = str_replace('__SITE_DOMAIN__',$site->site_domain,$web_hook);
+                    $response = Http::get($web_hook);
+                }
+            }
+        ]]);
         $this->crud->addField(['name'=>'product_start_id','tab' => 'Import Setting']);
         $this->crud->addField(['name'=>'product_end_id','tab' => 'Import Setting']);
         $this->crud->addField(['name'=>'product_limit_per_call','tab' => 'Import Setting']);
